@@ -5,12 +5,14 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	public float moveSpeed = 2;
-	public MoneyPrefab moneyPrefab;
 	public GameObject gettenMoney;
+
+	[SerializeField]
+	private List<GameObject> gettenMoneys;
 
 	[Tooltip("최대 가질 수 있는 아이템 수")]
 	public int gettableItemNum = 4;
-	private int getItemNum = 0;
+	private int gettenItemNum = 0;
 
 	// Start is called before the first frame update
 	void Start()
@@ -28,14 +30,21 @@ public class Player : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (getItemNum < gettableItemNum)
+
+		if (collision.CompareTag("Money"))
 		{
-			if (collision.CompareTag("Money"))
+			if (gettenItemNum < gettableItemNum)
 			{
-				getItemNum++;
-				Instantiate(gettenMoney, transform);
+				gettenItemNum++;
+				gettenMoneys.Add(gettenMoney);
+				//Instantiate(gettenMoney, transform);
 				Destroy(collision.gameObject);
 			}
+		}
+		else if (collision.CompareTag("MoneySaveZone"))
+		{
+			UIManager.Instance.money += gettenMoneys.Count;
+			gettenMoneys.Clear();
 		}
 	}
 }
