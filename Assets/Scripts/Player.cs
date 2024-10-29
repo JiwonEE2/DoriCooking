@@ -46,5 +46,10 @@ public class Player : MonoBehaviour
 			UIManager.Instance.money += gettenMoneys.Count;
 			gettenMoneys.Clear();
 		}
+		else if (collision.CompareTag("EnforceZone"))
+		{
+			UIManager.Instance.enforcePopup.SetActive(true);
+			Time.timeScale = 0;
+		}
 	}
 }
