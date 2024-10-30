@@ -104,5 +104,13 @@ public class Player : MonoBehaviour
 				}
 			}
 		}
+		else if (collision.CompareTag("FoodSetZone"))
+		{
+			if (currentGettenItem == ITEM.FOOD)
+			{
+				// 가진 요리를 전부 foodsetzone에 넣기
+
+			}
+		}
 	}
 }

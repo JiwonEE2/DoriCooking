@@ -9,6 +9,7 @@ TagManager:
   - EnforceZone
   - CookZone0
   - CookZone1
+  - FoodSetZone
   layers:
   - Default
   - TransparentFX

@@ -46,6 +46,7 @@ public class CustomerPrefab : MonoBehaviour
 		// 게임 오브젝트 테이블로 보내기
 		gameObject.transform.position = currentTable.position;
 		GameManager.Instance.isCustomerStanding = false;
+		GameManager.Instance.customerTimer = 0;
 
 		// 먹고
 
