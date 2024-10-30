@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
 		else if (collision.CompareTag("MoneySaveZone"))
 		{
 			UIManager.Instance.money += gettenMoneys.Count;
+			gettenItemNum = 0;
 			gettenMoneys.Clear();
 		}
 		else if (collision.CompareTag("EnforceZone"))
