@@ -6,8 +6,8 @@ public class Cooker : MonoBehaviour
 {
 	// 강화하면 2초로 줄기
 	public float cookDuration = 4f;
-
-	public int foodNum = 0;
+	public int foodCount = 0;
+	public int foodCountLimit = 6;
 
 	private void Start()
 	{
@@ -18,8 +18,15 @@ public class Cooker : MonoBehaviour
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(cookDuration);
-			foodNum++;
+			if (foodCount < foodCountLimit)
+			{
+				yield return new WaitForSeconds(cookDuration);
+				foodCount++;
+			}
+			else
+			{
+				yield return new WaitForEndOfFrame();
+			}
 		}
 	}
 }

@@ -30,11 +30,11 @@ public class CustomerPrefab : MonoBehaviour
 	void Update()
 	{
 		// 시간도 지났고,음식을 덜 나눠 주었고, 카운터에 음식이 있을 때
-		if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodNum > 0)
+		if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodCount > 0)
 		{
 			// 음식을 나눠준다
 			foodNum++;
-			GameManager.Instance.foodNum--;
+			GameManager.Instance.foodCount--;
 		}
 		// 음식도 다 나눠주고, 테이블도 비어있을 때
 		if (foodNum == foodRequireNum && TableController.Instance.emptyTableDatas.Count > 0)

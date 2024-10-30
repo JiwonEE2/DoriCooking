@@ -85,10 +85,10 @@ public class Player : MonoBehaviour
 			if (currentGettenItem == ITEM.FOOD || currentGettenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				while (cooker0.foodNum > 0 && gettenItemNum < gettableItemNum)
+				while (cooker0.foodCount > 0 && gettenItemNum < gettableItemNum)
 				{
 					gettenItemNum++;
-					cooker0.foodNum--;
+					cooker0.foodCount--;
 					currentGettenItem = ITEM.FOOD;
 				}
 			}
@@ -98,10 +98,10 @@ public class Player : MonoBehaviour
 			if (currentGettenItem == ITEM.FOOD || currentGettenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				while (cooker1.foodNum > 0 && gettenItemNum < gettableItemNum)
+				while (cooker1.foodCount > 0 && gettenItemNum < gettableItemNum)
 				{
 					gettenItemNum++;
-					cooker1.foodNum--;
+					cooker1.foodCount--;
 					currentGettenItem = ITEM.FOOD;
 				}
 			}
@@ -110,8 +110,9 @@ public class Player : MonoBehaviour
 		{
 			if (currentGettenItem == ITEM.FOOD)
 			{
+				// 게임매니저의 푸드리밋 확인하고 넣기
 				// 가진 요리를 전부 foodsetzone에 넣기
-				GameManager.Instance.foodNum += gettenItemNum;
+				GameManager.Instance.foodCount += gettenItemNum;
 				gettenItemNum = 0;
 				currentGettenItem = ITEM.NONE;
 			}

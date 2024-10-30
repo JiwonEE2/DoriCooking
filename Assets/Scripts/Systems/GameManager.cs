@@ -13,7 +13,8 @@ public class GameManager : SingletonManager<GameManager>
 
 	public float foodSellTimer = 0;
 	public float foodSellDuration = 0.5f;
-	public int foodNum = 0;
+	public int foodCount = 0;
+	public int foodCountLimit = 99;
 
 	// Start is called before the first frame update
 	void Start()
