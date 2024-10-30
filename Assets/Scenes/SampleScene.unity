@@ -937,7 +937,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2356,7 +2356,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -6611,6 +6611,7 @@ MonoBehaviour:
   currentGettenItem: 3
   cooker0: {fileID: 693768408}
   cooker1: {fileID: 702814453}
+  counter: {fileID: 0}
 --- !u!4 &1700640368
 Transform:
   m_ObjectHideFlags: 0
@@ -6957,6 +6958,9 @@ MonoBehaviour:
   - 20
   isCustomerStanding: 0
   customerTimer: 0
+  foodSellTimer: 0
+  foodSellDuration: 0.5
+  foodNum: 0
 --- !u!4 &1915227810
 Transform:
   m_ObjectHideFlags: 0

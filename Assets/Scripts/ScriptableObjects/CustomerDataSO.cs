@@ -6,7 +6,7 @@ using UnityEngine;
 public class CustomerDataSO : ScriptableObject
 {
 	public string customerName;
-	public int minItemNum;
-	public int maxItemNum;
+	public int minFoodNum;
+	public int maxFoodNum;
 	public Sprite sprite;
 }

@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 	public Cooker cooker0;
 	public Cooker cooker1;
 
+	public Counter counter;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -109,7 +111,9 @@ public class Player : MonoBehaviour
 			if (currentGettenItem == ITEM.FOOD)
 			{
 				// 가진 요리를 전부 foodsetzone에 넣기
-
+				GameManager.Instance.foodNum += gettenItemNum;
+				gettenItemNum = 0;
+				currentGettenItem = ITEM.NONE;
 			}
 		}
 	}

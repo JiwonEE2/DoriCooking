@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomerSpawner : MonoBehaviour
+public class Counter : MonoBehaviour
 {
 	public CustomerPrefab customerPrefab1;
 	public CustomerPrefab customerPrefab2;
@@ -19,7 +19,12 @@ public class CustomerSpawner : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		// 손님 생성될 자리가 비어있으면 생성
+		CustomerSpawn();
+	}
+
+	public void CustomerSpawn()
+	{
+		// 손님 생성될 자리가 비어있고, 손님 삭제된 지 1초가 지났을 때
 		if (GameManager.Instance.isCustomerStanding == false && GameManager.Instance.customerTimer >= spawnDuration)
 		{
 			float ran = Random.value;

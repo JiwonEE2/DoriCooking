@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Customer1
   m_EditorClassIdentifier: 
   customerName: Customer1
-  minItemNum: 1
-  maxItemNum: 3
+  minFoodNum: 1
+  maxFoodNum: 3
   sprite: {fileID: -1916553776, guid: 6d25fb80a1256ed498dee66f63c5884e, type: 3}

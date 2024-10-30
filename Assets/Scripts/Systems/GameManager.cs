@@ -11,6 +11,10 @@ public class GameManager : SingletonManager<GameManager>
 	public bool isCustomerStanding = false;
 	public float customerTimer = 0;
 
+	public float foodSellTimer = 0;
+	public float foodSellDuration = 0.5f;
+	public int foodNum = 0;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -21,5 +25,6 @@ public class GameManager : SingletonManager<GameManager>
 	void Update()
 	{
 		customerTimer += Time.deltaTime;
+		foodSellTimer += Time.deltaTime;
 	}
 }

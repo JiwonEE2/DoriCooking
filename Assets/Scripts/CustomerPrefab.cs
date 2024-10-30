@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CustomerPrefab : MonoBehaviour
 {
@@ -9,25 +10,34 @@ public class CustomerPrefab : MonoBehaviour
 
 	private SpriteRenderer spriteRenderer;
 
-	public bool isGetFood = false;
-
 	public GameObject moneyPrefab;
 
 	public TableDataSO currentTable;
 
 	public Vector2 moneySpawnPoint = new Vector2(1, -4);
+	public int foodRequireNum;
+	public int foodNum = 0;
 	// Start is called before the first frame update
 	void Start()
 	{
 		spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 		spriteRenderer.sortingOrder = 1;
 		spriteRenderer.sprite = customerData.sprite;
+		foodRequireNum = Random.Range(customerData.minFoodNum, customerData.maxFoodNum + 1);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (isGetFood && TableController.Instance.emptyTableDatas.Count > 0)
+		// 시간도 지났고,음식을 덜 나눠 주었고, 카운터에 음식이 있을 때
+		if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodNum > 0)
+		{
+			// 음식을 나눠준다
+			foodNum++;
+			GameManager.Instance.foodNum--;
+		}
+		// 음식도 다 나눠주고, 테이블도 비어있을 때
+		if (foodNum == foodRequireNum && TableController.Instance.emptyTableDatas.Count > 0)
 		{
 			// 돈 주고
 			Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
@@ -51,6 +61,6 @@ public class CustomerPrefab : MonoBehaviour
 		// 먹고
 
 		// 치우고 테이블 임프티로 옮기고
-		isGetFood = false;
+		//Destroy(gameObject);
 	}
 }
