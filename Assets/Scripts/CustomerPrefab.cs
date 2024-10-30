@@ -12,6 +12,10 @@ public class CustomerPrefab : MonoBehaviour
 	public bool isGetFood = false;
 
 	public GameObject moneyPrefab;
+
+	public TableDataSO currentTable;
+
+	public Vector2 moneySpawnPoint = new Vector2(1, -4);
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -26,7 +30,7 @@ public class CustomerPrefab : MonoBehaviour
 		if (isGetFood && TableController.Instance.emptyTableDatas.Count > 0)
 		{
 			// 돈 주고
-			Instantiate(moneyPrefab, new Vector2(-6, 2), Quaternion.identity);
+			Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
 			GoEmptyTable();
 		}
 	}
@@ -34,11 +38,13 @@ public class CustomerPrefab : MonoBehaviour
 	public void GoEmptyTable()
 	{
 		// 비어있는 테이블 삭제하고 점령된 테이블에 추가하기
-		TableController.Instance.ocuppiedTableDatas.Add(TableController.Instance.emptyTableDatas[0]);
+		currentTable = TableController.Instance.emptyTableDatas[0];
 		TableController.Instance.emptyTableDatas.RemoveAt(0);
 
+		TableController.Instance.ocuppiedTableDatas.Add(currentTable);
+
 		// 게임 오브젝트 테이블로 보내기
-		gameObject.transform.position = TableController.Instance.ocuppiedTableDatas[TableController.Instance.ocuppiedTableDatas.Count - 1].position;
+		gameObject.transform.position = currentTable.position;
 		GameManager.Instance.isCustomerStanding = false;
 
 		// 먹고

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Table5
   m_EditorClassIdentifier: 
   tableNum: 5
-  position: {x: 6, y: -6}
+  position: {x: 14, y: -11}
   isEmpty: 1

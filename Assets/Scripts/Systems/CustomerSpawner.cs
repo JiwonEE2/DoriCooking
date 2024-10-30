@@ -6,7 +6,7 @@ public class CustomerSpawner : MonoBehaviour
 {
 	public CustomerPrefab customerPrefab1;
 	public CustomerPrefab customerPrefab2;
-	public Vector2 spawnPoint = new Vector2(-5, 1);
+	public Vector2 spawnPoint = new Vector2(2, -5);
 
 	private CustomerPrefab customer;
 	// Start is called before the first frame update
