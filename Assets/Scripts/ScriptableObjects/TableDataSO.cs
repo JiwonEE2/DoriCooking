@@ -8,4 +8,5 @@ public class TableDataSO : ScriptableObject
 	public int tableNum;
 	public Vector2 position;
 	public bool isEmpty;
+	public int trashCount;
 }

@@ -172,6 +172,19 @@ public class Player : MonoBehaviour
 				}
 			}
 		}
+		// 테이블 콜리전과 박았을 때
+		else if (collision.GetComponent<TablePrefab>() != null)
+		{
+			if (currentGottenItem == ITEM.NONE || currentGottenItem == ITEM.TRASH)
+			{
+				while (collision.GetComponent<TablePrefab>().trashCount > 0 && gottenItemNum < gettableItemNum)
+				{
+					gottenItemNum++;
+					collision.GetComponent<TablePrefab>().trashCount--;
+					currentGottenItem = ITEM.TRASH;
+				}
+			}
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
