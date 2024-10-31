@@ -58,6 +58,12 @@ public class Player : MonoBehaviour
 			UIManager.Instance.enforcePopup.SetActive(true);
 			Time.timeScale = 0;
 		}
+
+		if (currentGettenItem <= 0)
+		{
+			currentGettenItem = 0;
+			currentGettenItem = ITEM.NONE;
+		}
 	}
 
 	private void OnTriggerStay2D(Collider2D collision)
@@ -111,11 +117,19 @@ public class Player : MonoBehaviour
 			if (currentGettenItem == ITEM.FOOD)
 			{
 				// 게임매니저의 푸드리밋 확인하고 넣기
-				// 가진 요리를 전부 foodsetzone에 넣기
-				GameManager.Instance.foodCount += gettenItemNum;
-				gettenItemNum = 0;
-				currentGettenItem = ITEM.NONE;
+				while (GameManager.Instance.foodCountLimit > GameManager.Instance.foodCount)
+				{
+					// 가진 요리를 전부 foodsetzone에 넣기
+					gettenItemNum--;
+					GameManager.Instance.foodCount++;
+				}
 			}
+		}
+
+		if (currentGettenItem <= 0)
+		{
+			currentGettenItem = 0;
+			currentGettenItem = ITEM.NONE;
 		}
 	}
 }
