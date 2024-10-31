@@ -16,6 +16,9 @@ public class GameManager : SingletonManager<GameManager>
 	public int foodCount = 0;
 	public int foodCountLimit = 99;
 
+	[Tooltip("음식 먹는 속도")]
+	public int eatFoodSpeedPerSeceond = 2;
+
 	// Start is called before the first frame update
 	void Start()
 	{

@@ -17,6 +17,12 @@ public class CustomerPrefab : MonoBehaviour
 	public Vector2 moneySpawnPoint = new Vector2(1, -4);
 	public int foodRequireNum;
 	public int foodNum = 0;
+
+	public float eatFoodTime = 0;
+
+	public bool isGetAllFood = false;
+	public bool isOccupyTable = false;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -36,12 +42,45 @@ public class CustomerPrefab : MonoBehaviour
 			foodNum++;
 			GameManager.Instance.foodCount--;
 		}
-		// 음식도 다 나눠주고, 테이블도 비어있을 때
-		if (foodNum == foodRequireNum && TableController.Instance.emptyTableDatas.Count > 0)
+
+		// 음식 다 받고, 
+		if (foodNum == foodRequireNum && isGetAllFood == false)
 		{
-			// 돈 주고
-			Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
-			GoEmptyTable();
+			isGetAllFood = true;
+		}
+
+		// 음식을 다 받았었다면,
+		if (isGetAllFood)
+		{
+			// 테이블에 가지 았았고,
+			if (false == isOccupyTable)
+			{
+				// 테이블이 비어있으면, 돈주고,테이블에 간다.
+				if (TableController.Instance.emptyTableDatas.Count > 0)
+				{
+					Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
+					isOccupyTable = true;
+					GoEmptyTable();
+				}
+			}
+			// 테이블에 갔으면,
+			else
+			{
+				// 덜 먹었으면 먹고
+				if (foodNum >= 0)
+				{
+					EatFood();
+				}
+				// 다먹었으면 치운다.
+				else
+				{
+					// 치우는 것 구현 전
+					print("다먹고 치우기 직전");
+					TableController.Instance.emptyTableDatas.Add(currentTable);
+					TableController.Instance.occupiedTableDatas.Remove(currentTable);
+					Destroy(gameObject);
+				}
+			}
 		}
 	}
 
@@ -50,17 +89,26 @@ public class CustomerPrefab : MonoBehaviour
 		// 비어있는 테이블 삭제하고 점령된 테이블에 추가하기
 		currentTable = TableController.Instance.emptyTableDatas[0];
 		TableController.Instance.emptyTableDatas.RemoveAt(0);
-
-		TableController.Instance.ocuppiedTableDatas.Add(currentTable);
+		TableController.Instance.occupiedTableDatas.Add(currentTable);
 
 		// 게임 오브젝트 테이블로 보내기
 		gameObject.transform.position = currentTable.position;
 		GameManager.Instance.isCustomerStanding = false;
 		GameManager.Instance.customerTimer = 0;
+	}
 
-		// 먹고
-
-		// 치우고 테이블 임프티로 옮기고
-		//Destroy(gameObject);
+	public void EatFood()
+	{
+		// foodNum에 따라 먹고 사라지기
+		// 먹는 시간이 1초를 지났을 때
+		if (eatFoodTime >= 1)
+		{
+			foodNum -= GameManager.Instance.eatFoodSpeedPerSeceond;
+			eatFoodTime = 0;
+		}
+		else
+		{
+			eatFoodTime += Time.deltaTime;
+		}
 	}
 }

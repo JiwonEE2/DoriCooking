@@ -124,7 +124,6 @@ public class Player : MonoBehaviour
 			if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				print(cooker0.foodCount);
 				while (cooker0.foodCount > 0 && gottenItemNum < gettableItemNum)
 				{
 					gottenItemNum++;

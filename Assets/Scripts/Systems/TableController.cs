@@ -5,7 +5,7 @@ using UnityEngine;
 public class TableController : SingletonManager<TableController>
 {
 	public List<TableDataSO> emptyTableDatas;
-	public List<TableDataSO> ocuppiedTableDatas;
+	public List<TableDataSO> occupiedTableDatas;
 
 	// Start is called before the first frame update
 	void Start()
