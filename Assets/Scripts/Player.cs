@@ -11,7 +11,10 @@ public class Player : MonoBehaviour
 		MONEY, FOOD, TRASH, NONE
 	}
 
+	[Tooltip("플레이어의 초당 이동 칸 수")]
 	public float moveSpeed = 2;
+	private int x;
+	private int y;
 
 	[Tooltip("최대 가질 수 있는 아이템 수")]
 	public int gettableItemNum = 4;
@@ -45,14 +48,17 @@ public class Player : MonoBehaviour
 	{
 		gottenItemShowObjectSpriteRenderer = gottenItemShowObject.AddComponent<SpriteRenderer>();
 		gottenItemShowObjectSpriteRenderer.sortingOrder = 3;
+		StartCoroutine(MovingCoroutine());
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		float x = Input.GetAxis("Horizontal");
-		float y = Input.GetAxis("Vertical");
-		transform.Translate(new Vector3(x, y) * Time.deltaTime * moveSpeed);
+		x = (int)Input.GetAxis("Horizontal");
+		y = (int)Input.GetAxis("Vertical");
+		if (x > 0.5) x = 1;
+		if (y > 0.5) y = 1;
+
 		// 쓰레기 처리
 		if (isTrashcanZone)
 		{
@@ -202,6 +208,15 @@ public class Player : MonoBehaviour
 		else if (collision.gameObject.name == "FoodDistributeZone")
 		{
 			GameManager.Instance.isSellingFood = false;
+		}
+	}
+
+	public IEnumerator MovingCoroutine()
+	{
+		while (true)
+		{
+			transform.Translate(new Vector2(x, y));
+			yield return new WaitForSeconds(1 / moveSpeed);
 		}
 	}
 }
