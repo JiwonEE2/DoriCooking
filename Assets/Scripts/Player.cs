@@ -49,6 +49,10 @@ public class Player : MonoBehaviour
 		float x = Input.GetAxis("Horizontal");
 		float y = Input.GetAxis("Vertical");
 		transform.Translate(new Vector3(x, y) * Time.deltaTime * moveSpeed);
+		if (gottenItemNum == 0)
+		{
+			currentGottenItem = ITEM.NONE;
+		}
 		GottenItemShow();
 	}
 
@@ -82,20 +86,12 @@ public class Player : MonoBehaviour
 				UIManager.Instance.money += gottenItemNum;
 				// 내 돈은 0으로
 				gottenItemNum = 0;
-				// 가진 아이템도 없음으로 설정
-				currentGottenItem = ITEM.NONE;
 			}
 		}
 		else if (collision.CompareTag("EnforceZone"))
 		{
 			UIManager.Instance.enforcePopup.SetActive(true);
 			Time.timeScale = 0;
-		}
-
-		if (currentGottenItem <= 0)
-		{
-			currentGottenItem = 0;
-			currentGottenItem = ITEM.NONE;
 		}
 	}
 
@@ -157,12 +153,6 @@ public class Player : MonoBehaviour
 					GameManager.Instance.foodCount++;
 				}
 			}
-		}
-
-		if (gottenItemNum <= 0)
-		{
-			gottenItemNum = 0;
-			currentGottenItem = ITEM.NONE;
 		}
 	}
 }
