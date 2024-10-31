@@ -111,6 +111,12 @@ public class Player : MonoBehaviour
 			trashcanTimer = 0;
 			isTrashcanZone = true;
 		}
+		else if (collision.gameObject.name == "FoodDistributeZone")
+		{
+			// 음식 나눠주기
+			GameManager.Instance.isSellingFood = true;
+			GameManager.Instance.foodSellTimer = 0;
+		}
 	}
 
 	private void OnTriggerStay2D(Collider2D collision)
@@ -192,6 +198,10 @@ public class Player : MonoBehaviour
 		if (collision.CompareTag("TrashcanZone"))
 		{
 			isTrashcanZone = false;
+		}
+		else if (collision.gameObject.name == "FoodDistributeZone")
+		{
+			GameManager.Instance.isSellingFood = false;
 		}
 	}
 }

@@ -19,6 +19,8 @@ public class GameManager : SingletonManager<GameManager>
 	[Tooltip("음식 먹는 속도")]
 	public int eatFoodSpeedPerSeceond = 2;
 
+	public bool isSellingFood = false;
+
 	// Start is called before the first frame update
 	void Start()
 	{

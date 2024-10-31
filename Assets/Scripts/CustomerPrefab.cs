@@ -35,13 +35,17 @@ public class CustomerPrefab : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		// 시간도 지났고,음식을 덜 나눠 주었고, 카운터에 음식이 있을 때
-		if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodCount > 0 && isGetAllFood == false)
+		// 근데 플레이어가 트리거에 들어왔을 때!
+		if (GameManager.Instance.isSellingFood)
 		{
-			// 음식을 나눠준다
-			foodNum++;
-			GameManager.Instance.foodCount--;
-			GameManager.Instance.foodSellTimer = 0;
+			// 시간도 지났고,음식을 덜 나눠 주었고, 카운터에 음식이 있을 때
+			if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodCount > 0 && isGetAllFood == false)
+			{
+				// 음식을 나눠준다
+				foodNum++;
+				GameManager.Instance.foodCount--;
+				GameManager.Instance.foodSellTimer = 0;
+			}
 		}
 
 		// 음식 다 받고, 
