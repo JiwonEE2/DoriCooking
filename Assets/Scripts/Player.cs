@@ -36,6 +36,10 @@ public class Player : MonoBehaviour
 	[SerializeField]
 	private SpriteRenderer gottenItemShowObjectSpriteRenderer;
 
+	// 쓰레기 처리
+	public float trashcanTimer = 0;
+	public bool isTrashcanZone = false;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -49,6 +53,15 @@ public class Player : MonoBehaviour
 		float x = Input.GetAxis("Horizontal");
 		float y = Input.GetAxis("Vertical");
 		transform.Translate(new Vector3(x, y) * Time.deltaTime * moveSpeed);
+		// 쓰레기 처리
+		if (isTrashcanZone)
+		{
+			trashcanTimer += Time.deltaTime;
+			if (trashcanTimer > 1)
+			{
+				gottenItemNum = 0;
+			}
+		}
 		if (gottenItemNum == 0)
 		{
 			currentGottenItem = ITEM.NONE;
@@ -92,6 +105,11 @@ public class Player : MonoBehaviour
 		{
 			UIManager.Instance.enforcePopup.SetActive(true);
 			Time.timeScale = 0;
+		}
+		else if (collision.CompareTag("TrashcanZone"))
+		{
+			trashcanTimer = 0;
+			isTrashcanZone = true;
 		}
 	}
 
@@ -153,6 +171,14 @@ public class Player : MonoBehaviour
 					GameManager.Instance.foodCount++;
 				}
 			}
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.CompareTag("TrashcanZone"))
+		{
+			isTrashcanZone = false;
 		}
 	}
 }

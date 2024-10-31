@@ -75,7 +75,6 @@ public class CustomerPrefab : MonoBehaviour
 				else
 				{
 					// 치우는 것 구현 전
-					print("다먹고 치우기 직전");
 					TableController.Instance.emptyTableDatas.Add(currentTable);
 					TableController.Instance.occupiedTableDatas.Remove(currentTable);
 					Destroy(gameObject);
