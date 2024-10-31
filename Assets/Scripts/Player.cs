@@ -15,19 +15,32 @@ public class Player : MonoBehaviour
 
 	[Tooltip("최대 가질 수 있는 아이템 수")]
 	public int gettableItemNum = 4;
-	public int gettenItemNum = 0;
+	public int gottenItemNum = 0;
 	[Tooltip("현재 가지고 있는 아이템 종류")]
-	public ITEM currentGettenItem = ITEM.NONE;
+	public ITEM currentGottenItem = ITEM.NONE;
 
 	public Cooker cooker0;
 	public Cooker cooker1;
 
 	public Counter counter;
 
+	[Tooltip("들고 있을 때 표시될 아이템(렌더러가 포함된 아이템 객체)")]
+	public Sprite moneySprite;
+	public Sprite foodSprite;
+	public Sprite trashSprite;
+
+	[SerializeField]
+	private Sprite showingItemSprite;
+	public GameObject gottenItemShowObject;
+
+	[SerializeField]
+	private SpriteRenderer gottenItemShowObjectSpriteRenderer;
+
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		gottenItemShowObjectSpriteRenderer = gottenItemShowObject.AddComponent<SpriteRenderer>();
+		gottenItemShowObjectSpriteRenderer.sortingOrder = 3;
 	}
 
 	// Update is called once per frame
@@ -36,6 +49,26 @@ public class Player : MonoBehaviour
 		float x = Input.GetAxis("Horizontal");
 		float y = Input.GetAxis("Vertical");
 		transform.Translate(new Vector3(x, y) * Time.deltaTime * moveSpeed);
+		GottenItemShow();
+	}
+
+	public void GottenItemShow()
+	{
+		switch (currentGottenItem)
+		{
+			case ITEM.NONE:
+				gottenItemShowObjectSpriteRenderer.sprite = null;
+				return;
+			case ITEM.MONEY:
+				gottenItemShowObjectSpriteRenderer.sprite = moneySprite;
+				break;
+			case ITEM.FOOD:
+				gottenItemShowObjectSpriteRenderer.sprite = foodSprite;
+				break;
+			case ITEM.TRASH:
+				gottenItemShowObjectSpriteRenderer.sprite = trashSprite;
+				break;
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -43,14 +76,14 @@ public class Player : MonoBehaviour
 		if (collision.CompareTag("MoneySaveZone"))
 		{
 			// 가진 게 돈일 때만
-			if (currentGettenItem == ITEM.MONEY)
+			if (currentGottenItem == ITEM.MONEY)
 			{
 				// 가진만큼 매니저에 넣고
-				UIManager.Instance.money += gettenItemNum;
+				UIManager.Instance.money += gottenItemNum;
 				// 내 돈은 0으로
-				gettenItemNum = 0;
+				gottenItemNum = 0;
 				// 가진 아이템도 없음으로 설정
-				currentGettenItem = ITEM.NONE;
+				currentGottenItem = ITEM.NONE;
 			}
 		}
 		else if (collision.CompareTag("EnforceZone"))
@@ -59,10 +92,10 @@ public class Player : MonoBehaviour
 			Time.timeScale = 0;
 		}
 
-		if (currentGettenItem <= 0)
+		if (currentGottenItem <= 0)
 		{
-			currentGettenItem = 0;
-			currentGettenItem = ITEM.NONE;
+			currentGottenItem = 0;
+			currentGottenItem = ITEM.NONE;
 		}
 	}
 
@@ -72,15 +105,15 @@ public class Player : MonoBehaviour
 		if (collision.CompareTag("Money"))
 		{
 			// 가진게 돈이거나 없다면
-			if (currentGettenItem == ITEM.MONEY || currentGettenItem == ITEM.NONE)
+			if (currentGottenItem == ITEM.MONEY || currentGottenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼만 가지고
-				if (gettenItemNum < gettableItemNum)
+				if (gottenItemNum < gettableItemNum)
 				{
-					gettenItemNum++;
+					gottenItemNum++;
 					Destroy(collision.gameObject);
 					// 가진 것을 머니로 바꾸기
-					currentGettenItem = ITEM.MONEY;
+					currentGottenItem = ITEM.MONEY;
 				}
 			}
 		}
@@ -88,48 +121,49 @@ public class Player : MonoBehaviour
 		else if (collision.CompareTag("CookZone0"))
 		{
 			// 가진 게 음식이거나 없을 때
-			if (currentGettenItem == ITEM.FOOD || currentGettenItem == ITEM.NONE)
+			if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				while (cooker0.foodCount > 0 && gettenItemNum < gettableItemNum)
+				print(cooker0.foodCount);
+				while (cooker0.foodCount > 0 && gottenItemNum < gettableItemNum)
 				{
-					gettenItemNum++;
+					gottenItemNum++;
 					cooker0.foodCount--;
-					currentGettenItem = ITEM.FOOD;
+					currentGottenItem = ITEM.FOOD;
 				}
 			}
 		}
 		else if (collision.CompareTag("CookZone1"))
 		{
-			if (currentGettenItem == ITEM.FOOD || currentGettenItem == ITEM.NONE)
+			if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				while (cooker1.foodCount > 0 && gettenItemNum < gettableItemNum)
+				while (cooker1.foodCount > 0 && gottenItemNum < gettableItemNum)
 				{
-					gettenItemNum++;
+					gottenItemNum++;
 					cooker1.foodCount--;
-					currentGettenItem = ITEM.FOOD;
+					currentGottenItem = ITEM.FOOD;
 				}
 			}
 		}
 		else if (collision.CompareTag("FoodSetZone"))
 		{
-			if (currentGettenItem == ITEM.FOOD)
+			if (currentGottenItem == ITEM.FOOD)
 			{
-				// 게임매니저의 푸드리밋 확인하고 넣기
-				while (GameManager.Instance.foodCountLimit > GameManager.Instance.foodCount)
+				// 게임매니저의 푸드리밋, 가진 요리 확인하고 넣기
+				while (GameManager.Instance.foodCountLimit > GameManager.Instance.foodCount && gottenItemNum > 0)
 				{
 					// 가진 요리를 전부 foodsetzone에 넣기
-					gettenItemNum--;
+					gottenItemNum--;
 					GameManager.Instance.foodCount++;
 				}
 			}
 		}
 
-		if (currentGettenItem <= 0)
+		if (gottenItemNum <= 0)
 		{
-			currentGettenItem = 0;
-			currentGettenItem = ITEM.NONE;
+			gottenItemNum = 0;
+			currentGottenItem = ITEM.NONE;
 		}
 	}
 }

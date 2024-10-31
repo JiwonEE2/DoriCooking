@@ -1344,7 +1344,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1353650389}
   m_Father: {fileID: 1700640368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &572640140
@@ -1802,7 +1803,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cookDuration: 4
-  foodNum: 0
+  foodCount: 0
+  foodCountLimit: 6
 --- !u!1 &697093443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,7 +1890,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cookDuration: 4
-  foodNum: 0
+  foodCount: 0
+  foodCountLimit: 6
 --- !u!1 &766275168
 GameObject:
   m_ObjectHideFlags: 0
@@ -6312,6 +6315,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344275223}
   m_CullTransparentMesh: 1
+--- !u!1 &1353650388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1353650389}
+  m_Layer: 0
+  m_Name: GottenItem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1353650389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353650388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 572640139}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522839380
 GameObject:
   m_ObjectHideFlags: 0
@@ -6607,11 +6641,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   gettableItemNum: 4
-  gettenItemNum: 0
-  currentGettenItem: 3
+  gottenItemNum: 0
+  currentGottenItem: 3
   cooker0: {fileID: 693768408}
   cooker1: {fileID: 702814453}
   counter: {fileID: 0}
+  moneySprite: {fileID: 21300000, guid: 4b185035c500f5649be29491de206a45, type: 3}
+  foodSprite: {fileID: -1373231202, guid: 4b72e411a1dc0064bb116d43a40842e8, type: 3}
+  trashSprite: {fileID: 606935106, guid: 572dc09736a913147ba84a2ea346fb48, type: 3}
+  showingItemSprite: {fileID: 0}
+  gottenItemShowObject: {fileID: 1353650388}
+  gottenItemShowObjectSpriteRenderer: {fileID: 0}
 --- !u!4 &1700640368
 Transform:
   m_ObjectHideFlags: 0
@@ -6687,7 +6727,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!1 &1800858313
@@ -6960,7 +7000,8 @@ MonoBehaviour:
   customerTimer: 0
   foodSellTimer: 0
   foodSellDuration: 0.5
-  foodNum: 0
+  foodCount: 0
+  foodCountLimit: 99
 --- !u!4 &1915227810
 Transform:
   m_ObjectHideFlags: 0
