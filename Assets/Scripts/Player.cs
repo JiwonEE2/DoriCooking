@@ -54,10 +54,22 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		x = (int)Input.GetAxis("Horizontal");
-		y = (int)Input.GetAxis("Vertical");
-		if (x > 0.5) x = 1;
-		if (y > 0.5) y = 1;
+		if (Input.GetKey(KeyCode.W))
+		{
+			y = 1;
+		}
+		else if (Input.GetKey(KeyCode.S))
+		{
+			y = -1;
+		}
+		else if (Input.GetKey(KeyCode.D))
+		{
+			x = 1;
+		}
+		else if (Input.GetKey(KeyCode.A))
+		{
+			x = -1;
+		}
 
 		// 쓰레기 처리
 		if (isTrashcanZone)
@@ -216,6 +228,8 @@ public class Player : MonoBehaviour
 		while (true)
 		{
 			transform.Translate(new Vector2(x, y));
+			x = 0;
+			y = 0;
 			yield return new WaitForSeconds(1 / moveSpeed);
 		}
 	}
