@@ -66,27 +66,16 @@ public class CustomerPrefab : MonoBehaviour
 					GameManager.Instance.customerTimer = 0;
 					GameManager.Instance.isCustomerStanding = false;
 					Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
-					isGoTable = true;
 					GoEmptyTable();
+					isGoTable = true;
+					StartCoroutine(MovingCoroutine());
 				}
 			}
-			// 테이블에 갔으면,
-			else
-			{
-				// 덜 먹었으면 먹고
-				if (foodNum >= 0)
-				{
-					EatFood();
-				}
-				// 다먹었으면 치운다.
-				else
-				{
-					// 치우는 것 구현 전
-					//TableController.Instance.emptyTableDatas.Add(currentTable);
-					//TableController.Instance.occupiedTableDatas.Remove(currentTable);
-					Destroy(gameObject);
-				}
-			}
+		}
+
+		if (isGoTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
+		{
+			StopCoroutine(MovingCoroutine());
 		}
 	}
 
@@ -94,9 +83,10 @@ public class CustomerPrefab : MonoBehaviour
 	{
 		// 비어있는 테이블 삭제하고 점령된 테이블에 추가하기
 		currentTable = TableController.Instance.emptyTables[0];
+		TableController.Instance.emptyTables.Remove(currentTable);
 
 		// 게임 오브젝트 테이블로 보내기
-		gameObject.transform.position = currentTable.GetComponent<TablePrefab>().customerPos;
+		//gameObject.transform.position = currentTable.GetComponent<TablePrefab>().customerPos;
 	}
 
 	public void EatFood()
@@ -113,5 +103,74 @@ public class CustomerPrefab : MonoBehaviour
 		{
 			eatFoodTime += Time.deltaTime;
 		}
+	}
+
+	public IEnumerator MovingCoroutine()
+	{
+		while (isGoTable)
+		{
+			while ((Vector2)transform.position != currentTable.GetComponent<TablePrefab>().customerPos)
+			{
+				// 손님의 길찾기 알고리즘 구현하기 (장애물이 많지 않은 상황에서 사용하기에 가볍고 괜찮아보임)
+				// 후에 A* 등 알고리즘 넣어도 될 듯
+				// 1. 출발지에서 목적지까지의 x,y증분을 각각 구한다.
+				float x = currentTable.GetComponent<TablePrefab>().customerPos.x - transform.position.x;
+				float y = currentTable.GetComponent<TablePrefab>().customerPos.y - transform.position.y;
+
+				// 2. 증분이 같아질 때까지 더 큰 증분을 감소시킨다.
+				if (Mathf.Abs(x) > Mathf.Abs(y))
+				{
+					if (x < 0)
+					{
+						transform.Translate(new Vector2(-1, 0));
+						yield return new WaitForSeconds(1 / moveSpeed);
+					}
+					else
+					{
+						transform.Translate(new Vector2(1, 0));
+						yield return new WaitForSeconds(1 / moveSpeed);
+					}
+				}
+				else
+				{
+					if (y < 0)
+					{
+						transform.Translate(new Vector2(0, -1));
+						yield return new WaitForSeconds(1 / moveSpeed);
+					}
+					else
+					{
+						transform.Translate(new Vector2(0, 1));
+						yield return new WaitForSeconds(1 / moveSpeed);
+					}
+				}
+			}
+			// 3. 이때, 장애물이 있다면 다른 증분을 감소시킨다.
+
+			// 4. 두 증분이 같아지면 번갈아가며 증분을 감소시킨다. 
+
+			// 5. 이때에도 장애물이 있는 지 확인하며 장애물이 있다면 다른 증분을 감소시킨다.
+
+			// 6. 근데 두 방향 다 증분을 감소시킬 수 없다면 해당 방향을 빠져나올 수 있도록 반대 장애물을 감소시킨다.
+
+			if ((Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
+			{
+				// 테이블에 갔으면,
+				// 덜 먹었으면 먹고
+				if (foodNum >= 0)
+				{
+					EatFood();
+				}
+				// 다먹었으면 치운다.
+				else
+				{
+					// 치우는 것 구현 전
+					TableController.Instance.trashedTables.Add(currentTable);
+					Destroy(gameObject);
+					yield return null;
+				}
+			}
+		}
+		yield return null;
 	}
 }
