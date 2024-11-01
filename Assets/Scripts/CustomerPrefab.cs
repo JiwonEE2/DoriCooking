@@ -23,8 +23,7 @@ public class CustomerPrefab : MonoBehaviour
 	public bool isGetAllFood = false;
 	public bool isGoTable = false;
 
-	// Start is called before the first frame update
-	void Start()
+	private void Start()
 	{
 		spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 		spriteRenderer.sortingOrder = 1;
@@ -32,8 +31,7 @@ public class CustomerPrefab : MonoBehaviour
 		foodRequireNum = Random.Range(customerData.minFoodNum, customerData.maxFoodNum + 1);
 	}
 
-	// Update is called once per frame
-	void Update()
+	private void Update()
 	{
 		// 근데 플레이어가 트리거에 들어왔을 때!
 		if (GameManager.Instance.isSellingFood)
