@@ -95,7 +95,7 @@ public class CustomerPrefab : MonoBehaviour
 		// 먹는 시간이 1초를 지났을 때
 		if (eatFoodTime >= 1)
 		{
-			foodNum -= GameManager.Instance.eatFoodSpeedPerSeceond;
+			foodNum -= GameManager.Instance.eatFoodSpeedPerSeceond[currentTable.GetComponent<TablePrefab>().tableNum];
 			currentTable.GetComponent<TablePrefab>().trashCount++;
 			eatFoodTime = 0;
 		}

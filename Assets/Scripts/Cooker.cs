@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Cooker : MonoBehaviour
 {
-	// 강화하면 2초로 줄기
-	public float cookDuration = 4f;
+	public int cookerNum;
 	public int foodCount = 0;
-	public int foodCountLimit = 6;
 
 	private void Start()
 	{
@@ -18,9 +16,9 @@ public class Cooker : MonoBehaviour
 	{
 		while (true)
 		{
-			if (foodCount < foodCountLimit)
+			if (foodCount < GameManager.Instance.cookerFoodLimit[cookerNum])
 			{
-				yield return new WaitForSeconds(cookDuration);
+				yield return new WaitForSeconds(GameManager.Instance.cookDuration[cookerNum]);
 				foodCount++;
 			}
 			else

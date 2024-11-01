@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TablePrefab : MonoBehaviour
 {
+	public int tableNum;
 	public int trashCount;
 	public Vector2 customerPos;
 

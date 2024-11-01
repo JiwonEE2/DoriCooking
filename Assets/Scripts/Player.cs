@@ -11,13 +11,9 @@ public class Player : MonoBehaviour
 		MONEY, FOOD, TRASH, NONE
 	}
 
-	[Tooltip("플레이어의 초당 이동 칸 수")]
-	public float moveSpeed = 2;
 	private int x;
 	private int y;
 
-	[Tooltip("최대 가질 수 있는 아이템 수")]
-	public int gettableItemNum = 4;
 	public int gottenItemNum = 0;
 	[Tooltip("현재 가지고 있는 아이템 종류")]
 	public ITEM currentGottenItem = ITEM.NONE;
@@ -146,7 +142,7 @@ public class Player : MonoBehaviour
 			if (currentGottenItem == ITEM.MONEY || currentGottenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼만 가지고
-				if (gottenItemNum < gettableItemNum)
+				if (gottenItemNum < GameManager.Instance.playerGettableItemCount)
 				{
 					gottenItemNum++;
 					Destroy(collision.gameObject);
@@ -162,7 +158,7 @@ public class Player : MonoBehaviour
 			if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				while (cooker0.foodCount > 0 && gottenItemNum < gettableItemNum)
+				while (cooker0.foodCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
 				{
 					gottenItemNum++;
 					cooker0.foodCount--;
@@ -175,7 +171,7 @@ public class Player : MonoBehaviour
 			if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
 			{
 				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				while (cooker1.foodCount > 0 && gottenItemNum < gettableItemNum)
+				while (cooker1.foodCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
 				{
 					gottenItemNum++;
 					cooker1.foodCount--;
@@ -201,7 +197,7 @@ public class Player : MonoBehaviour
 		{
 			if (currentGottenItem == ITEM.NONE || currentGottenItem == ITEM.TRASH)
 			{
-				while (collision.GetComponent<TablePrefab>().trashCount > 0 && gottenItemNum < gettableItemNum)
+				while (collision.GetComponent<TablePrefab>().trashCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
 				{
 					gottenItemNum++;
 					collision.GetComponent<TablePrefab>().trashCount--;
@@ -217,7 +213,7 @@ public class Player : MonoBehaviour
 		{
 			isTrashcanZone = false;
 		}
-		else if (collision.gameObject.name == "FoodDistributeZone")
+		else if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterUp == false)
 		{
 			GameManager.Instance.isSellingFood = false;
 		}
@@ -230,7 +226,7 @@ public class Player : MonoBehaviour
 			transform.Translate(new Vector2(x, y));
 			x = 0;
 			y = 0;
-			yield return new WaitForSeconds(1 / moveSpeed);
+			yield return new WaitForSeconds(1 / GameManager.Instance.playerMoveSpeed);
 		}
 	}
 }

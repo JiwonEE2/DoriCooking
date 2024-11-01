@@ -28,7 +28,7 @@ public class Counter : MonoBehaviour
 		if (GameManager.Instance.isCustomerStanding == false && GameManager.Instance.customerTimer >= spawnDuration)
 		{
 			float ran = Random.value;
-			if (ran * 100 <= GameManager.Instance.customerSpawnRate[GameManager.Instance.level])
+			if (ran * 100 <= GameManager.Instance.customerSpawnRate[GameManager.Instance.level - 1])
 			{
 				customer = Instantiate(customerPrefab1, spawnPoint, Quaternion.identity);
 			}
