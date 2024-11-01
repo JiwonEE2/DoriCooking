@@ -84,9 +84,6 @@ public class CustomerPrefab : MonoBehaviour
 		// 비어있는 테이블 삭제하고 점령된 테이블에 추가하기
 		currentTable = TableController.Instance.emptyTables[0];
 		TableController.Instance.emptyTables.Remove(currentTable);
-
-		// 게임 오브젝트 테이블로 보내기
-		//gameObject.transform.position = currentTable.GetComponent<TablePrefab>().customerPos;
 	}
 
 	public void EatFood()
@@ -157,14 +154,17 @@ public class CustomerPrefab : MonoBehaviour
 			{
 				// 테이블에 갔으면,
 				// 덜 먹었으면 먹고
+				// 테이블 위에 음식 스프라이트 표시
+				currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
+				print("음식을 테이블에 뒀다");
 				if (foodNum >= 0)
 				{
 					EatFood();
 				}
-				// 다먹었으면 치운다.
+				// 다먹었으면 쓰레기 생성하고 손님 사라지기
 				else
 				{
-					// 치우는 것 구현 전
+					currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.trashSprite;
 					TableController.Instance.trashedTables.Add(currentTable);
 					Destroy(gameObject);
 					yield return null;

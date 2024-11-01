@@ -20,6 +20,7 @@ public class TableController : SingletonManager<TableController>
 		{
 			if (trashedTables[i].GetComponent<TablePrefab>().trashCount <= 0)
 			{
+				trashedTables[i].GetComponent<TablePrefab>().objectSpriteRenderer.sprite = null;
 				emptyTables.Add(trashedTables[i]);
 				trashedTables.RemoveAt(i);
 			}
@@ -28,6 +29,7 @@ public class TableController : SingletonManager<TableController>
 		{
 			if (emptyTables[i].GetComponent<TablePrefab>().trashCount > 0)
 			{
+				emptyTables[i].GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.trashSprite;
 				trashedTables.Add(emptyTables[i]);
 				emptyTables.RemoveAt(i);
 			}

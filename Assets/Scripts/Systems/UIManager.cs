@@ -53,7 +53,7 @@ public class UIManager : SingletonManager<UIManager>
 	{
 		if (isSpeedUp == false)
 		{
-			print(GameManager.Instance.level);
+			//print(GameManager.Instance.level);
 			GameManager.Instance.playerMoveSpeed = 4;
 			GameManager.Instance.level++;
 			isSpeedUp = true;
@@ -64,7 +64,7 @@ public class UIManager : SingletonManager<UIManager>
 	{
 		if (isCapacityUp == false)
 		{
-			print(GameManager.Instance.level);
+			//print(GameManager.Instance.level);
 			GameManager.Instance.playerGettableItemCount = 10;
 			GameManager.Instance.level++;
 			isCapacityUp = true;
@@ -75,7 +75,7 @@ public class UIManager : SingletonManager<UIManager>
 	{
 		if (isVillianInteractionUp == false)
 		{
-			print(GameManager.Instance.level);
+			//print(GameManager.Instance.level);
 			GameManager.Instance.playerVillianInteractionSpeed = 1.5f;
 			GameManager.Instance.level++;
 			isVillianInteractionUp = true;
@@ -86,7 +86,7 @@ public class UIManager : SingletonManager<UIManager>
 	{
 		if (cookerUpCount < 2)
 		{
-			print(GameManager.Instance.level);
+			//print(GameManager.Instance.level);
 			GameManager.Instance.cookDuration[cookerUpCount] = 2f;
 			GameManager.Instance.cookerFoodLimit[cookerUpCount] = 10;
 			GameManager.Instance.level++;
@@ -98,7 +98,7 @@ public class UIManager : SingletonManager<UIManager>
 	{
 		if (GameManager.Instance.isCounterUp == false)
 		{
-			print(GameManager.Instance.level);
+			//print(GameManager.Instance.level);
 			GameManager.Instance.foodSellDuration = 0.1f;
 			GameManager.Instance.isCounterUp = true;
 			GameManager.Instance.level++;
@@ -109,7 +109,7 @@ public class UIManager : SingletonManager<UIManager>
 	{
 		if (tableUpCount < 6)
 		{
-			print(GameManager.Instance.level);
+			//print(GameManager.Instance.level);
 			GameManager.Instance.eatFoodSpeedPerSeceond[tableUpCount] = 4;
 			GameManager.Instance.level++;
 			tableUpCount++;
