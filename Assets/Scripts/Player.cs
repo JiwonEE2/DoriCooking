@@ -11,8 +11,14 @@ public class Player : MonoBehaviour
 		MONEY, FOOD, TRASH, NONE
 	}
 
-	private int x;
-	private int y;
+	// 이동 구현을 위한 변수
+	private float horizontal;
+	private float vertical;
+	public bool isHorizontalMove = false;
+	public bool hDown = false;
+	public bool vDown = false;
+	public bool hUp = false;
+	public bool vUp = false;
 
 	public int gottenItemNum = 0;
 	[Tooltip("현재 가지고 있는 아이템 종류")]
@@ -44,28 +50,13 @@ public class Player : MonoBehaviour
 	{
 		gottenItemShowObjectSpriteRenderer = gottenItemShowObject.AddComponent<SpriteRenderer>();
 		gottenItemShowObjectSpriteRenderer.sortingOrder = 3;
-		StartCoroutine(MovingCoroutine());
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKey(KeyCode.W))
-		{
-			y = 1;
-		}
-		else if (Input.GetKey(KeyCode.S))
-		{
-			y = -1;
-		}
-		else if (Input.GetKey(KeyCode.D))
-		{
-			x = 1;
-		}
-		else if (Input.GetKey(KeyCode.A))
-		{
-			x = -1;
-		}
+		// 이동 함수
+		Moving();
 
 		// 쓰레기 처리
 		if (isTrashcanZone)
@@ -219,14 +210,37 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	public IEnumerator MovingCoroutine()
+	public void Moving()
 	{
-		while (true)
+		// 이동 구현 다시
+		horizontal = Input.GetAxis("Horizontal");
+		vertical = Input.GetAxis("Vertical");
+
+		hDown = Input.GetButtonDown("Horizontal");
+		vDown = Input.GetButtonDown("Vertical");
+		hUp = Input.GetButtonUp("Horizontal");
+		vUp = Input.GetButtonUp("Vertical");
+
+		if (hDown || vUp)
 		{
-			transform.Translate(new Vector2(x, y));
-			x = 0;
-			y = 0;
-			yield return new WaitForSeconds(1 / GameManager.Instance.playerMoveSpeed);
+			isHorizontalMove = true;
+		}
+		else if (vDown || hUp)
+		{
+			isHorizontalMove = false;
+		}
+		else if (hUp || vUp)
+		{
+			isHorizontalMove = horizontal != 0;
+		}
+
+		if (isHorizontalMove)
+		{
+			transform.Translate(new Vector2(horizontal, 0) * Time.deltaTime * GameManager.Instance.playerMoveSpeed);
+		}
+		else if (!isHorizontalMove)
+		{
+			transform.Translate(new Vector2(0, vertical) * Time.deltaTime * GameManager.Instance.playerMoveSpeed);
 		}
 	}
 }
