@@ -1936,7 +1936,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -210058217, guid: fb477b67f1112b24ba790d29caff8059, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2354,6 +2354,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cookerNum: 0
   foodCount: 0
+  objectSpriteRenderer1: {fileID: 913764232}
+  objectSpriteRenderer2: {fileID: 886400286}
 --- !u!1 &697093443
 GameObject:
   m_ObjectHideFlags: 0
@@ -2441,8 +2443,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36b130c94d1c9e4dafe60ad27215220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cookerNum: 0
+  cookerNum: 1
   foodCount: 0
+  objectSpriteRenderer1: {fileID: 1764646168}
+  objectSpriteRenderer2: {fileID: 56967901}
 --- !u!1 &734927399
 GameObject:
   m_ObjectHideFlags: 0

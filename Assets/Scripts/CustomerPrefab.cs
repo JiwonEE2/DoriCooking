@@ -154,7 +154,6 @@ public class CustomerPrefab : MonoBehaviour
 				// 덜 먹었으면 먹고
 				// 테이블 위에 음식 스프라이트 표시
 				currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
-				print("음식을 테이블에 뒀다");
 				if (foodNum >= 0)
 				{
 					EatFood();

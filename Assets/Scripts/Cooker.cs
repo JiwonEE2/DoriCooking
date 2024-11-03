@@ -7,9 +7,26 @@ public class Cooker : MonoBehaviour
 	public int cookerNum;
 	public int foodCount = 0;
 
+	public SpriteRenderer objectSpriteRenderer1;
+	public SpriteRenderer objectSpriteRenderer2;
+
 	private void Start()
 	{
 		StartCoroutine(CookCoroutine());
+	}
+
+	private void Update()
+	{
+		if (foodCount > 0)
+		{
+			objectSpriteRenderer1.sprite = SpriteManager.Instance.foodSprite;
+			objectSpriteRenderer2.sprite = SpriteManager.Instance.foodSprite;
+		}
+		else
+		{
+			objectSpriteRenderer1.sprite = null;
+			objectSpriteRenderer2.sprite = null;
+		}
 	}
 
 	private IEnumerator CookCoroutine()
