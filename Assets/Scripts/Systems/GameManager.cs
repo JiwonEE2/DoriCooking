@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class GameManager : SingletonManager<GameManager>
@@ -37,6 +38,13 @@ public class GameManager : SingletonManager<GameManager>
 	[Tooltip("ÃÊ´ç À½½Ä ¸Ô´Â ¼Óµµ")]
 	public int[] eatFoodSpeedPerSeceond = { 2, 2, 2, 2, 2, 2 };
 
+	public float villianTimer = 0;
+
+	[Tooltip("¼Õ´ÔÀÇ ¼Ò¸ê ½ÅÈ£")]
+	public bool isCustomerDestoy = false;
+	[Tooltip("¼Ò¸êµÈ ¼Õ´ÔÀÇ À§Ä¡")]
+	public Vector2 destroyedCustomerPosition;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -48,5 +56,6 @@ public class GameManager : SingletonManager<GameManager>
 	{
 		customerTimer += Time.deltaTime;
 		foodSellTimer += Time.deltaTime;
+		villianTimer += Time.deltaTime;
 	}
 }

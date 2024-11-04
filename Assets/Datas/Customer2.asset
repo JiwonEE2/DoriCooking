@@ -15,4 +15,4 @@ MonoBehaviour:
   customerName: Customer2
   minFoodNum: 5
   maxFoodNum: 10
-  sprite: {fileID: -1077999778, guid: 5d0f56b29eb02bd42bfcbf629fba5153, type: 3}
+  sprite: {fileID: -45699212, guid: a0738851959aa4745bdbe05fc8303388, type: 3}

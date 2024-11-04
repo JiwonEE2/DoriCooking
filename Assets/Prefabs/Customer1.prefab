@@ -44,7 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2508c97fc8e58dc4ebef437ce07f3d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customerData: {fileID: 11400000, guid: a886c4bc0c0d3744eb29bb82ffeccaa2, type: 2}
+  customerData: {fileID: 11400000, guid: e5371f9434e2eeb4b8ade8cd153c746b, type: 2}
   moveSpeed: 2
-  isGetFood: 0
   moneyPrefab: {fileID: 2490610562302502510, guid: 8f1519595fe16384280b060082688c73, type: 3}
+  currentTable: {fileID: 0}
+  moneySpawnPoint: {x: 1, y: -4}
+  foodRequireNum: 0
+  foodNum: 0
+  eatFoodTime: 0
+  isGetAllFood: 0
+  isGoTable: 0

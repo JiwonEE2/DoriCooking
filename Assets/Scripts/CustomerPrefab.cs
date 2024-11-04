@@ -26,7 +26,7 @@ public class CustomerPrefab : MonoBehaviour
 	private void Start()
 	{
 		spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-		spriteRenderer.sortingOrder = 1;
+		spriteRenderer.sortingOrder = 4;
 		spriteRenderer.sprite = customerData.sprite;
 		foodRequireNum = Random.Range(customerData.minFoodNum, customerData.maxFoodNum + 1);
 		spriteRenderer.sortingOrder = 4;
@@ -164,6 +164,8 @@ public class CustomerPrefab : MonoBehaviour
 				{
 					currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.trashSprite;
 					TableController.Instance.trashedTables.Add(currentTable);
+					GameManager.Instance.isCustomerDestoy = true;
+					GameManager.Instance.destroyedCustomerPosition = transform.position;
 					Destroy(gameObject);
 					yield return null;
 				}

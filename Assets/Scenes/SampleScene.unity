@@ -2893,7 +2893,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -210058217, guid: fb477b67f1112b24ba790d29caff8059, type: 3}
+  m_Sprite: {fileID: -1077999778, guid: 5d0f56b29eb02bd42bfcbf629fba5153, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4984,6 +4984,61 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1205573997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1205573998}
+  - component: {fileID: 1205573999}
+  m_Layer: 0
+  m_Name: VillianSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1205573998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205573997}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1205573999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205573997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a811ced351f73f468714311adfd8b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedVillian: 0
+  villianPrefab: {fileID: 4406026874367627600, guid: 921ae2509357f65468f3f455dc8d495d, type: 3}
+  minTime: 5
+  maxTime: 10
+  spawnTime: 0
+  isVillianSpawn: 0
+  isMoneyBoxVillianSpawn: 0
+  cookerVillianPosition: {x: 5, y: 2}
+  counterVillianPosition: {x: 2, y: -5}
+  tableVillianPosition: {x: 0, y: 0}
+  moneyBoxVillianPosition: {x: 1, y: -2}
 --- !u!1 &1213924337
 GameObject:
   m_ObjectHideFlags: 0
@@ -9702,6 +9757,7 @@ MonoBehaviour:
   foodSprite: {fileID: -1373231202, guid: 4b72e411a1dc0064bb116d43a40842e8, type: 3}
   moneySprite: {fileID: 21300000, guid: 4b185035c500f5649be29491de206a45, type: 3}
   trashSprite: {fileID: 606935106, guid: 572dc09736a913147ba84a2ea346fb48, type: 3}
+  villianSprite: {fileID: -1916553776, guid: 6d25fb80a1256ed498dee66f63c5884e, type: 3}
 --- !u!4 &1398926711
 Transform:
   m_ObjectHideFlags: 0
@@ -10856,6 +10912,9 @@ MonoBehaviour:
   cookerFoodLimit: 0600000006000000
   isCounterUp: 0
   eatFoodSpeedPerSeceond: 020000000200000002000000020000000200000002000000
+  villianTimer: 0
+  isCustomerDestoy: 0
+  destroyedCustomerPosition: {x: 0, y: 0}
 --- !u!4 &1915227810
 Transform:
   m_ObjectHideFlags: 0
@@ -12282,7 +12341,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1700640368}
   - {fileID: 388354067}
-  - {fileID: 1915227810}
   - {fileID: 545894333}
   - {fileID: 697093444}
   - {fileID: 871817628}
@@ -12293,3 +12351,5 @@ SceneRoots:
   - {fileID: 693768407}
   - {fileID: 702814452}
   - {fileID: 1398926711}
+  - {fileID: 1205573998}
+  - {fileID: 1915227810}
