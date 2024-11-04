@@ -10,10 +10,25 @@ public class Counter : MonoBehaviour
 	public float spawnDuration = 1f;
 
 	private CustomerPrefab customer;
+	public SpriteRenderer counterOnFoodRenderer;
+
+	private void Start()
+	{
+		counterOnFoodRenderer.sprite = SpriteManager.Instance.foodSprite;
+		counterOnFoodRenderer.sortingOrder = 6;
+	}
 
 	private void Update()
 	{
 		CustomerSpawn();
+		if (GameManager.Instance.foodCount > 0)
+		{
+			counterOnFoodRenderer.enabled = true;
+		}
+		else
+		{
+			counterOnFoodRenderer.enabled = false;
+		}
 	}
 
 	public void CustomerSpawn()
