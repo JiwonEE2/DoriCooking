@@ -11,9 +11,10 @@ public class VillianSpawner : MonoBehaviour
 	}
 	public VILLIAN selectedVillian;
 
-	[Tooltip("빌런 프리팹")]
-	public GameObject villianPrefab;
-	private GameObject villian;
+	public GameObject cookerVillianPrefab;
+	public GameObject counterVillianPrefab;
+	public GameObject moneyBoxVillianPrefab;
+	public GameObject tableVillianPrefab;
 
 	[Tooltip("빌런 삭제 후 생성 최소 시간")]
 	public float minTime = 30;
@@ -21,18 +22,6 @@ public class VillianSpawner : MonoBehaviour
 	public float maxTime = 60;
 	[SerializeField, Tooltip("빌런 생성 예약 시간")]
 	private float spawnTime = 0;
-
-	public Vector2 cookerVillianPosition;
-	public Vector2 counterVillianPosition;
-	public Vector2 tableVillianPosition;
-	public Vector2 moneyBoxVillianPosition;
-
-	private void Reset()
-	{
-		cookerVillianPosition = new Vector2(5, -2);
-		counterVillianPosition = new Vector2(2, -5);
-		moneyBoxVillianPosition = new Vector2(1, -2);
-	}
 
 	private void Update()
 	{
@@ -43,10 +32,11 @@ public class VillianSpawner : MonoBehaviour
 	public void SetTimer()
 	{
 		// 빌런이 삭제되어 새로운 타이머 세팅이 필요하다면
-		if (GameManager.Instance.newVillianTimerSetting)
+		if (GameManager.Instance.needNewVillianTimerSetting)
 		{
+			print("타이머 세팅");
 			spawnTime = Random.Range(minTime, maxTime);
-			GameManager.Instance.newVillianTimerSetting = false;
+			GameManager.Instance.needNewVillianTimerSetting = false;
 		}
 	}
 
@@ -55,8 +45,7 @@ public class VillianSpawner : MonoBehaviour
 		// 무전취식, 전화, 절도 빌런의 생성
 		if (GameManager.Instance.villianTimer > spawnTime && UIManager.Instance.isVillianSpawn == false)
 		{
-			villian = Instantiate(villianPrefab, transform);
-
+			print("빌런 생성");
 			// 셋 중 랜덤으로 하나 골라서 해당 빌런의 포지션을 세팅하기
 			selectedVillian = (VILLIAN)Random.Range(0, 3);
 			while (selectedVillian == VILLIAN.COUNTER && GameManager.Instance.isCustomerStanding)
@@ -66,14 +55,13 @@ public class VillianSpawner : MonoBehaviour
 			switch (selectedVillian)
 			{
 				case VILLIAN.COOKER:
-					villian.transform.position = cookerVillianPosition;
-					// 손님 막아버리기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					Instantiate(cookerVillianPrefab, transform);
 					break;
 				case VILLIAN.COUNTER:
-					villian.transform.position = counterVillianPosition;
+					Instantiate(counterVillianPrefab, transform);
 					break;
 				case VILLIAN.MONEYBOX:
-					villian.transform.position = moneyBoxVillianPosition;
+					Instantiate(moneyBoxVillianPrefab, transform);
 					GameManager.Instance.isMoneyBoxVillianSpawn = true;
 					break;
 			}
@@ -88,8 +76,7 @@ public class VillianSpawner : MonoBehaviour
 			}
 			else if (Random.Range(0, 5) == 0)
 			{
-				villian = Instantiate(villianPrefab, transform);
-				villian.transform.position = GameManager.Instance.destroyedCustomerPosition;
+				Instantiate(tableVillianPrefab, transform);
 				UIManager.Instance.isVillianSpawn = true;
 			}
 			else

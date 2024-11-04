@@ -5029,14 +5029,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedVillian: 0
-  villianPrefab: {fileID: 4406026874367627600, guid: 921ae2509357f65468f3f455dc8d495d, type: 3}
+  cookerVillianPrefab: {fileID: 7671051846932857777, guid: 5c3dae75a93ea5a469d3024797424326, type: 3}
+  counterVillianPrefab: {fileID: 584197818362268659, guid: 1b2cb00e87ebea448912360fd6a48d4a, type: 3}
+  moneyBoxVillianPrefab: {fileID: 7159247133571000897, guid: d3e5aec80bb991343ba8f5a996320dbd, type: 3}
+  tableVillianPrefab: {fileID: 5572922986338009706, guid: d6d103e4a13da824f9225689e94ac5fa, type: 3}
   minTime: 3
   maxTime: 5
   spawnTime: 0
-  cookerVillianPosition: {x: 5, y: -2}
-  counterVillianPosition: {x: 2, y: -5}
-  tableVillianPosition: {x: 0, y: 0}
-  moneyBoxVillianPosition: {x: 1, y: -2}
 --- !u!1 &1213924337
 GameObject:
   m_ObjectHideFlags: 0
