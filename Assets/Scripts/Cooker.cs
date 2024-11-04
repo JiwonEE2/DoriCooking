@@ -12,6 +12,8 @@ public class Cooker : MonoBehaviour
 
 	private void Start()
 	{
+		objectSpriteRenderer1.sortingOrder = 6;
+		objectSpriteRenderer2.sortingOrder = 6;
 		StartCoroutine(CookCoroutine());
 	}
 

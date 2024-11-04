@@ -13,5 +13,6 @@ public class TablePrefab : MonoBehaviour
 	{
 		customerPos = new Vector2(transform.position.x, transform.position.y + 1);
 		objectSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+		objectSpriteRenderer.sortingOrder = 6;
 	}
 }

@@ -29,6 +29,7 @@ public class CustomerPrefab : MonoBehaviour
 		spriteRenderer.sortingOrder = 1;
 		spriteRenderer.sprite = customerData.sprite;
 		foodRequireNum = Random.Range(customerData.minFoodNum, customerData.maxFoodNum + 1);
+		spriteRenderer.sortingOrder = 4;
 	}
 
 	private void Update()

@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 	void Start()
 	{
 		gottenItemShowObjectSpriteRenderer = gottenItemShowObject.AddComponent<SpriteRenderer>();
-		gottenItemShowObjectSpriteRenderer.sortingOrder = 3;
+		gottenItemShowObjectSpriteRenderer.sortingOrder = 5;
 	}
 
 	// Update is called once per frame
