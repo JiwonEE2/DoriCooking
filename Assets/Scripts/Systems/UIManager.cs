@@ -17,6 +17,9 @@ public class UIManager : SingletonManager<UIManager>
 	public int cookerUpCount = 0;
 	public int tableUpCount = 0;
 
+	// ºô·±
+	public bool isVillianSpawn = false;
+
 	// Start is called before the first frame update
 	void Start()
 	{

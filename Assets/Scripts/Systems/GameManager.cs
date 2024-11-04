@@ -39,6 +39,10 @@ public class GameManager : SingletonManager<GameManager>
 	public int[] eatFoodSpeedPerSeceond = { 2, 2, 2, 2, 2, 2 };
 
 	public float villianTimer = 0;
+	public bool newVillianTimerSetting = true;
+
+	[Tooltip("절도 빌런 생성 여부")]
+	public bool isMoneyBoxVillianSpawn = false;
 
 	[Tooltip("손님의 소멸 신호")]
 	public bool isCustomerDestoy = false;

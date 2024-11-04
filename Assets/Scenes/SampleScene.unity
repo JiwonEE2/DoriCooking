@@ -5030,12 +5030,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedVillian: 0
   villianPrefab: {fileID: 4406026874367627600, guid: 921ae2509357f65468f3f455dc8d495d, type: 3}
-  minTime: 5
-  maxTime: 10
+  minTime: 3
+  maxTime: 5
   spawnTime: 0
-  isVillianSpawn: 0
-  isMoneyBoxVillianSpawn: 0
-  cookerVillianPosition: {x: 5, y: 2}
+  cookerVillianPosition: {x: 5, y: -2}
   counterVillianPosition: {x: 2, y: -5}
   tableVillianPosition: {x: 0, y: 0}
   moneyBoxVillianPosition: {x: 1, y: -2}
@@ -9293,6 +9291,7 @@ MonoBehaviour:
   isVillianInteractionUp: 0
   cookerUpCount: 0
   tableUpCount: 0
+  isVillianSpawn: 0
 --- !u!1 &1315042289
 GameObject:
   m_ObjectHideFlags: 0
@@ -10913,6 +10912,8 @@ MonoBehaviour:
   isCounterUp: 0
   eatFoodSpeedPerSeceond: 020000000200000002000000020000000200000002000000
   villianTimer: 0
+  newVillianTimerSetting: 0
+  isMoneyBoxVillianSpawn: 0
   isCustomerDestoy: 0
   destroyedCustomerPosition: {x: 0, y: 0}
 --- !u!4 &1915227810

@@ -7,7 +7,7 @@ public class VillianSpawner : MonoBehaviour
 {
 	public enum VILLIAN
 	{
-		COOKER, COUNTER, TABLE, MONEYBOX
+		COOKER, COUNTER, MONEYBOX, TABLE
 	}
 	public VILLIAN selectedVillian;
 
@@ -22,41 +22,38 @@ public class VillianSpawner : MonoBehaviour
 	[SerializeField, Tooltip("빌런 생성 예약 시간")]
 	private float spawnTime = 0;
 
-	[Tooltip("빌런 생성 여부")]
-	public bool isVillianSpawn = false;
-	//[Tooltip("취침 빌런 생성 여부")]
-	//public bool isTableVillianSpawn = false;
-	[Tooltip("절도 빌런 생성 여부")]
-	public bool isMoneyBoxVillianSpawn = false;
-
 	public Vector2 cookerVillianPosition;
 	public Vector2 counterVillianPosition;
 	public Vector2 tableVillianPosition;
 	public Vector2 moneyBoxVillianPosition;
 
-	private float destroyTimer = 0;
-
 	private void Reset()
 	{
-		cookerVillianPosition = new Vector2(5, 2);
+		cookerVillianPosition = new Vector2(5, -2);
 		counterVillianPosition = new Vector2(2, -5);
 		moneyBoxVillianPosition = new Vector2(1, -2);
 	}
 
-	private void Start()
-	{
-		spawnTime = Random.Range(minTime, maxTime);
-	}
 	private void Update()
 	{
+		SetTimer();
 		SpawnVillian();
-		DestroyVillian();
+	}
+
+	public void SetTimer()
+	{
+		// 빌런이 삭제되어 새로운 타이머 세팅이 필요하다면
+		if (GameManager.Instance.newVillianTimerSetting)
+		{
+			spawnTime = Random.Range(minTime, maxTime);
+			GameManager.Instance.newVillianTimerSetting = false;
+		}
 	}
 
 	public void SpawnVillian()
 	{
 		// 무전취식, 전화, 절도 빌런의 생성
-		if (GameManager.Instance.villianTimer > spawnTime && isVillianSpawn == false)
+		if (GameManager.Instance.villianTimer > spawnTime && UIManager.Instance.isVillianSpawn == false)
 		{
 			villian = Instantiate(villianPrefab, transform);
 
@@ -69,7 +66,7 @@ public class VillianSpawner : MonoBehaviour
 			switch (selectedVillian)
 			{
 				case VILLIAN.COOKER:
-					villian.transform.position = counterVillianPosition;
+					villian.transform.position = cookerVillianPosition;
 					// 손님 막아버리기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					break;
 				case VILLIAN.COUNTER:
@@ -77,15 +74,15 @@ public class VillianSpawner : MonoBehaviour
 					break;
 				case VILLIAN.MONEYBOX:
 					villian.transform.position = moneyBoxVillianPosition;
-					isMoneyBoxVillianSpawn = true;
+					GameManager.Instance.isMoneyBoxVillianSpawn = true;
 					break;
 			}
-			isVillianSpawn = true;
+			UIManager.Instance.isVillianSpawn = true;
 		}
 		// 취침 빌런의 생성
 		if (GameManager.Instance.isCustomerDestoy)
 		{
-			if (isVillianSpawn)
+			if (UIManager.Instance.isVillianSpawn)
 			{
 				GameManager.Instance.isCustomerDestoy = false;
 			}
@@ -93,36 +90,11 @@ public class VillianSpawner : MonoBehaviour
 			{
 				villian = Instantiate(villianPrefab, transform);
 				villian.transform.position = GameManager.Instance.destroyedCustomerPosition;
-				isVillianSpawn = true;
+				UIManager.Instance.isVillianSpawn = true;
 			}
 			else
 			{
 				GameManager.Instance.isCustomerDestoy = false;
-			}
-		}
-	}
-
-	public void DestroyVillian()
-	{
-		// 절도 빌런일 경우
-		if (isMoneyBoxVillianSpawn)
-		{
-			// 만약 플레이어가 일정 시간 이상 상호작용 한다면
-			if (GameManager.Instance.playerVillianInteractionSpeed / 2f < destroyTimer)
-			{
-				Destroy(villian);
-				isMoneyBoxVillianSpawn = false;
-				isVillianSpawn = false;
-				GameManager.Instance.villianTimer = 0;
-			}
-		}
-		else if (isVillianSpawn)
-		{
-			if (GameManager.Instance.playerVillianInteractionSpeed < destroyTimer)
-			{
-				Destroy(villian);
-				isVillianSpawn = false;
-				GameManager.Instance.villianTimer = 0;
 			}
 		}
 	}
