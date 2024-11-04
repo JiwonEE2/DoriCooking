@@ -85,26 +85,11 @@ public class CustomerPrefab : MonoBehaviour
 		TableController.Instance.emptyTables.Remove(currentTable);
 	}
 
-	public void EatFood()
-	{
-		// foodNum에 따라 먹고 사라지기
-		// 먹는 시간이 1초를 지났을 때
-		if (eatFoodTime >= 1)
-		{
-			foodNum -= GameManager.Instance.eatFoodSpeedPerSeceond[currentTable.GetComponent<TablePrefab>().tableNum];
-			currentTable.GetComponent<TablePrefab>().trashCount++;
-			eatFoodTime = 0;
-		}
-		else
-		{
-			eatFoodTime += Time.deltaTime;
-		}
-	}
-
 	public IEnumerator MovingCoroutine()
 	{
 		while (isGoTable)
 		{
+			// 테이블에 가는 중
 			while ((Vector2)transform.position != currentTable.GetComponent<TablePrefab>().customerPos)
 			{
 				// 손님의 길찾기 알고리즘 구현하기 (장애물이 많지 않은 상황에서 사용하기에 가볍고 괜찮아보임)
@@ -149,26 +134,25 @@ public class CustomerPrefab : MonoBehaviour
 
 			// 6. 근데 두 방향 다 증분을 감소시킬 수 없다면 해당 방향을 빠져나올 수 있도록 반대 장애물을 감소시킨다.
 
-			if ((Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
+			// 테이블에 갔으면,
+			// 덜 먹었으면 먹고
+			// 테이블 위에 음식 스프라이트 표시
+			currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
+			if (foodNum > 0)
 			{
-				// 테이블에 갔으면,
-				// 덜 먹었으면 먹고
-				// 테이블 위에 음식 스프라이트 표시
-				currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
-				if (foodNum >= 0)
-				{
-					EatFood();
-				}
-				// 다먹었으면 쓰레기 생성하고 손님 사라지기
-				else
-				{
-					currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.trashSprite;
-					TableController.Instance.trashedTables.Add(currentTable);
-					GameManager.Instance.isCustomerDestoy = true;
-					GameManager.Instance.destroyedCustomerPosition = transform.position;
-					Destroy(gameObject);
-					yield return null;
-				}
+				foodNum -= GameManager.Instance.eatFoodSpeedPerSeceond[currentTable.GetComponent<TablePrefab>().tableNum];
+				currentTable.GetComponent<TablePrefab>().trashCount++;
+				yield return new WaitForSeconds(1);
+			}
+			// 다먹었으면 쓰레기 생성하고 손님 사라지기
+			else
+			{
+				currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.trashSprite;
+				TableController.Instance.trashedTables.Add(currentTable);
+				GameManager.Instance.isCustomerDestoy = true;
+				GameManager.Instance.destroyedCustomerPosition = transform.position;
+				Destroy(gameObject);
+				yield return null;
 			}
 		}
 		yield return null;
