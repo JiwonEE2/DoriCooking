@@ -34,7 +34,7 @@ public class Counter : MonoBehaviour
 	public void CustomerSpawn()
 	{
 		// 손님 생성될 자리가 비어있고, 손님 삭제된 지 1초가 지났을 때
-		if (GameManager.Instance.isCustomerStanding == false && GameManager.Instance.customerTimer >= spawnDuration)
+		if (GameManager.Instance.isCustomerStanding == false && GameManager.Instance.customerTimer >= spawnDuration && GameManager.Instance.isCounterVillianSpawn == false)
 		{
 			float ran = Random.value;
 			if (ran * 100 <= GameManager.Instance.customerSpawnRate[GameManager.Instance.level - 1])

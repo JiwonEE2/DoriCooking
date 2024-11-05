@@ -10911,10 +10911,14 @@ MonoBehaviour:
   isCounterUp: 0
   eatFoodSpeedPerSeceond: 020000000200000002000000020000000200000002000000
   villianTimer: 0
-  newVillianTimerSetting: 0
-  isMoneyBoxVillianSpawn: 0
+  needNewVillianTimerSetting: 1
   isCustomerDestoy: 0
   destroyedCustomerPosition: {x: 0, y: 0}
+  destroyedCustomerTableNum: 0
+  isCounterVillianSpawn: 0
+  isCookerVillianSpawn: 0000
+  isMoneyBoxVillianSpawn: 0
+  isTableVillianSpawn: 000000000000
 --- !u!4 &1915227810
 Transform:
   m_ObjectHideFlags: 0
@@ -11796,6 +11800,7 @@ MonoBehaviour:
   trashCount: 0
   customerPos: {x: 6, y: -10}
   objectSpriteRenderer: {fileID: 0}
+  isTableVillianSpawn: 0
 --- !u!1 &282045723970077811
 GameObject:
   m_ObjectHideFlags: 0
@@ -11891,6 +11896,7 @@ MonoBehaviour:
   trashCount: 0
   customerPos: {x: 10, y: -7}
   objectSpriteRenderer: {fileID: 0}
+  isTableVillianSpawn: 0
 --- !u!1 &2269178825040671604
 GameObject:
   m_ObjectHideFlags: 0
@@ -11977,6 +11983,7 @@ MonoBehaviour:
   trashCount: 0
   customerPos: {x: 6, y: -7}
   objectSpriteRenderer: {fileID: 0}
+  isTableVillianSpawn: 0
 --- !u!61 &4497176436842953835
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12196,6 +12203,7 @@ MonoBehaviour:
   trashCount: 0
   customerPos: {x: 10, y: -10}
   objectSpriteRenderer: {fileID: 0}
+  isTableVillianSpawn: 0
 --- !u!61 &7864080065028112137
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12257,6 +12265,7 @@ MonoBehaviour:
   trashCount: 0
   customerPos: {x: 14, y: -7}
   objectSpriteRenderer: {fileID: 0}
+  isTableVillianSpawn: 0
 --- !u!114 &8544389517369552418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12273,6 +12282,7 @@ MonoBehaviour:
   trashCount: 0
   customerPos: {x: 14, y: -10}
   objectSpriteRenderer: {fileID: 0}
+  isTableVillianSpawn: 0
 --- !u!61 &8801105796214971812
 BoxCollider2D:
   m_ObjectHideFlags: 0

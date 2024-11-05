@@ -62,7 +62,6 @@ public class VillianSpawner : MonoBehaviour
 					break;
 				case VILLIAN.MONEYBOX:
 					Instantiate(moneyBoxVillianPrefab, transform);
-					GameManager.Instance.isMoneyBoxVillianSpawn = true;
 					break;
 			}
 			UIManager.Instance.isVillianSpawn = true;

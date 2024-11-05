@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class MoneyBoxVillian : Villian
 {
+	private float stealTimer = 0;
+	private float stealTime = 30f;
+
 	private void Awake()
 	{
 		villianDestroyTime /= 2f;
 		transform.position = new Vector2(1, -2);
+		GameManager.Instance.isMoneyBoxVillianSpawn = true;
 	}
-	protected override void OnTriggerStay2D(Collider2D collision)
+
+	private void Update()
 	{
-		if (collision.CompareTag("Player"))
+		stealTimer += Time.deltaTime;
+		if (stealTimer > stealTime)
 		{
-			villianDestroyTimer += Time.deltaTime;
-		}
-		if (villianDestroyTimer > villianDestroyTime)
-		{
-			GameManager.Instance.isMoneyBoxVillianSpawn = false;
-			UIManager.Instance.isVillianSpawn = false;
-			GameManager.Instance.villianTimer = 0;
-			GameManager.Instance.needNewVillianTimerSetting = true;
+			UIManager.Instance.money /= 2;
 			Destroy(gameObject);
 		}
+	}
+
+	protected override void OnDisable()
+	{
+		base.OnDisable();
+		GameManager.Instance.isMoneyBoxVillianSpawn = false;
 	}
 }

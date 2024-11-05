@@ -34,8 +34,8 @@ public class CustomerPrefab : MonoBehaviour
 
 	private void Update()
 	{
-		// 근데 플레이어가 트리거에 들어왔을 때!
-		if (GameManager.Instance.isSellingFood)
+		// 판매할 수 있을 때. 빌런도 없어야 함
+		if (GameManager.Instance.isSellingFood && GameManager.Instance.isCounterVillianSpawn == false)
 		{
 			// 시간도 지났고,음식을 덜 나눠 주었고, 카운터에 음식이 있을 때
 			if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodCount > 0 && isGetAllFood == false)
@@ -151,6 +151,7 @@ public class CustomerPrefab : MonoBehaviour
 				TableController.Instance.trashedTables.Add(currentTable);
 				GameManager.Instance.isCustomerDestoy = true;
 				GameManager.Instance.destroyedCustomerPosition = transform.position;
+				GameManager.Instance.destroyedCustomerTableNum = currentTable.GetComponent<TablePrefab>().tableNum;
 				Destroy(gameObject);
 				yield return null;
 			}

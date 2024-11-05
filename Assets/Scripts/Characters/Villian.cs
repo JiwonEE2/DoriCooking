@@ -15,10 +15,14 @@ public class Villian : MonoBehaviour
 		}
 		if (villianDestroyTimer > villianDestroyTime)
 		{
-			UIManager.Instance.isVillianSpawn = false;
-			GameManager.Instance.villianTimer = 0;
-			GameManager.Instance.needNewVillianTimerSetting = true;
 			Destroy(gameObject);
 		}
+	}
+
+	protected virtual void OnDisable()
+	{
+		UIManager.Instance.isVillianSpawn = false;
+		GameManager.Instance.villianTimer = 0;
+		GameManager.Instance.needNewVillianTimerSetting = true;
 	}
 }

@@ -41,22 +41,19 @@ public class GameManager : SingletonManager<GameManager>
 	public float villianTimer = 0;
 	public bool needNewVillianTimerSetting = true;
 
-	[Tooltip("절도 빌런 생성 여부")]
-	public bool isMoneyBoxVillianSpawn = false;
-
 	[Tooltip("손님의 소멸 신호")]
 	public bool isCustomerDestoy = false;
 	[Tooltip("소멸된 손님의 위치")]
 	public Vector2 destroyedCustomerPosition;
+	[Tooltip("소멸된 손님의 테이블 번호")]
+	public int destroyedCustomerTableNum;
 
-	// Start is called before the first frame update
-	void Start()
-	{
+	public bool isCounterVillianSpawn = false;
+	public bool[] isCookerVillianSpawn = { false, false };
+	public bool isMoneyBoxVillianSpawn = false;
+	public bool[] isTableVillianSpawn = { false, false, false, false, false, false };
 
-	}
-
-	// Update is called once per frame
-	void Update()
+	private void Update()
 	{
 		customerTimer += Time.deltaTime;
 		foodSellTimer += Time.deltaTime;

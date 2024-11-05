@@ -57,7 +57,14 @@ public class Player : MonoBehaviour
 	{
 		// 이동 함수
 		Moving();
+		// 쓰레기 처리
+		TrashThrow();
+		// 가진 아이템 보여주기
+		GottenItemShow();
+	}
 
+	public void TrashThrow()
+	{
 		// 쓰레기 처리
 		if (isTrashcanZone)
 		{
@@ -71,7 +78,6 @@ public class Player : MonoBehaviour
 		{
 			currentGottenItem = ITEM.NONE;
 		}
-		GottenItemShow();
 	}
 
 	public void GottenItemShow()
@@ -95,7 +101,7 @@ public class Player : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.CompareTag("MoneySaveZone"))
+		if (collision.CompareTag("MoneySaveZone") && GameManager.Instance.isMoneyBoxVillianSpawn == false)
 		{
 			// 가진 게 돈일 때만
 			if (currentGottenItem == ITEM.MONEY)
@@ -108,15 +114,19 @@ public class Player : MonoBehaviour
 		}
 		else if (collision.CompareTag("EnforceZone"))
 		{
-			UIManager.Instance.enforcePopup.SetActive(true);
-			Time.timeScale = 0;
+			if (GameManager.Instance.isMoneyBoxVillianSpawn == false)
+			{
+				UIManager.Instance.enforcePopup.SetActive(true);
+				Time.timeScale = 0;
+			}
 		}
 		else if (collision.CompareTag("TrashcanZone"))
 		{
 			trashcanTimer = 0;
 			isTrashcanZone = true;
 		}
-		else if (collision.gameObject.name == "FoodDistributeZone")
+		// 카운터 빌런이 없을 때만 가능
+		else if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterVillianSpawn == false)
 		{
 			// 음식 나눠주기
 			GameManager.Instance.isSellingFood = true;
@@ -127,7 +137,7 @@ public class Player : MonoBehaviour
 	private void OnTriggerStay2D(Collider2D collision)
 	{
 		// money랑 박았을 때
-		if (collision.CompareTag("Money"))
+		if (collision.CompareTag("Money") && GameManager.Instance.isCounterVillianSpawn == false)
 		{
 			// 가진게 돈이거나 없다면
 			if (currentGottenItem == ITEM.MONEY || currentGottenItem == ITEM.NONE)
@@ -146,27 +156,34 @@ public class Player : MonoBehaviour
 		else if (collision.CompareTag("CookZone0"))
 		{
 			// 가진 게 음식이거나 없을 때
-			if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
+			// 빌런도 없을 때
+			if (GameManager.Instance.isCookerVillianSpawn[0] == false)
 			{
-				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				while (cooker0.foodCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
+				if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
 				{
-					gottenItemNum++;
-					cooker0.foodCount--;
-					currentGottenItem = ITEM.FOOD;
+					// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
+					while (cooker0.foodCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
+					{
+						gottenItemNum++;
+						cooker0.foodCount--;
+						currentGottenItem = ITEM.FOOD;
+					}
 				}
 			}
 		}
 		else if (collision.CompareTag("CookZone1"))
 		{
-			if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
+			if (GameManager.Instance.isCookerVillianSpawn[1] == false)
 			{
-				// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-				while (cooker1.foodCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
+				if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
 				{
-					gottenItemNum++;
-					cooker1.foodCount--;
-					currentGottenItem = ITEM.FOOD;
+					// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
+					while (cooker1.foodCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
+					{
+						gottenItemNum++;
+						cooker1.foodCount--;
+						currentGottenItem = ITEM.FOOD;
+					}
 				}
 			}
 		}
@@ -174,17 +191,21 @@ public class Player : MonoBehaviour
 		{
 			if (currentGottenItem == ITEM.FOOD)
 			{
-				// 게임매니저의 푸드리밋, 가진 요리 확인하고 넣기
-				while (GameManager.Instance.foodCountLimit > GameManager.Instance.foodCount && gottenItemNum > 0)
+				// 계산대 빌런이 없을 때만 가능
+				if (GameManager.Instance.isCounterVillianSpawn == false)
 				{
-					// 가진 요리를 전부 foodsetzone에 넣기
-					gottenItemNum--;
-					GameManager.Instance.foodCount++;
+					// 게임매니저의 푸드리밋, 가진 요리 확인하고 넣기
+					while (GameManager.Instance.foodCountLimit > GameManager.Instance.foodCount && gottenItemNum > 0)
+					{
+						// 가진 요리를 전부 foodsetzone에 넣기
+						gottenItemNum--;
+						GameManager.Instance.foodCount++;
+					}
 				}
 			}
 		}
 		// 테이블 콜리전과 박았을 때
-		else if (collision.GetComponent<TablePrefab>() != null)
+		else if (collision.GetComponent<TablePrefab>() != null && collision.GetComponent<TablePrefab>().isTableVillianSpawn == false)
 		{
 			if (currentGottenItem == ITEM.NONE || currentGottenItem == ITEM.TRASH)
 			{
