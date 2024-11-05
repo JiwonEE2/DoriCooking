@@ -35,10 +35,14 @@ public class Cooker : MonoBehaviour
 	{
 		while (true)
 		{
-			if (foodCount < GameManager.Instance.cookerFoodLimit[cookerNum] && GameManager.Instance.isCookerVillianSpawn[cookerNum] == false)
+			if (foodCount < GameManager.Instance.cookerFoodLimit[cookerNum])
 			{
 				yield return new WaitForSeconds(GameManager.Instance.cookDuration[cookerNum]);
-				foodCount++;
+				if (GameManager.Instance.isCookerVillianSpawn[cookerNum] == false)
+				{
+					foodCount++;
+					yield return null;
+				}
 			}
 			else
 			{
