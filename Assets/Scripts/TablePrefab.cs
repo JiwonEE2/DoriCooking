@@ -17,4 +17,9 @@ public class TablePrefab : MonoBehaviour
 		objectSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		objectSpriteRenderer.sortingOrder = 6;
 	}
+
+	private void Update()
+	{
+		isTableVillianSpawn = GameManager.Instance.isTableVillianSpawn[tableNum];
+	}
 }

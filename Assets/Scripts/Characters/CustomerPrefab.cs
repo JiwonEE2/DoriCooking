@@ -120,7 +120,6 @@ public class CustomerPrefab : MonoBehaviour
 			}
 			if (foodNum <= 0)
 			{
-				StopCoroutine(EatCoroutine());
 				CustomerDestroy();
 			}
 		}
@@ -232,6 +231,7 @@ public class CustomerPrefab : MonoBehaviour
 		GameManager.Instance.isCustomerDestoy = true;
 		GameManager.Instance.destroyedCustomerPosition = transform.position;
 		GameManager.Instance.destroyedCustomerTableNum = currentTable.GetComponent<TablePrefab>().tableNum;
+		StopAllCoroutines();
 		Destroy(gameObject);
 	}
 

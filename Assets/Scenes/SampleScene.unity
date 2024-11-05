@@ -5033,8 +5033,8 @@ MonoBehaviour:
   counterVillianPrefab: {fileID: 584197818362268659, guid: 1b2cb00e87ebea448912360fd6a48d4a, type: 3}
   moneyBoxVillianPrefab: {fileID: 7159247133571000897, guid: d3e5aec80bb991343ba8f5a996320dbd, type: 3}
   tableVillianPrefab: {fileID: 5572922986338009706, guid: d6d103e4a13da824f9225689e94ac5fa, type: 3}
-  minTime: 3
-  maxTime: 5
+  minTime: 1000
+  maxTime: 10000
   spawnTime: 0
 --- !u!1 &1213924337
 GameObject:
@@ -10156,9 +10156,6 @@ MonoBehaviour:
   cooker0: {fileID: 693768408}
   cooker1: {fileID: 702814453}
   counter: {fileID: 0}
-  moneySprite: {fileID: 21300000, guid: 4b185035c500f5649be29491de206a45, type: 3}
-  foodSprite: {fileID: -1373231202, guid: 4b72e411a1dc0064bb116d43a40842e8, type: 3}
-  trashSprite: {fileID: 606935106, guid: 572dc09736a913147ba84a2ea346fb48, type: 3}
   showingItemSprite: {fileID: 0}
   gottenItemShowObject: {fileID: 1353650388}
   gottenItemShowObjectSpriteRenderer: {fileID: 0}
@@ -10909,7 +10906,13 @@ MonoBehaviour:
   - 4
   cookerFoodLimit: 0600000006000000
   isCounterUp: 0
-  eatFoodSpeedPerSeceond: 020000000200000002000000020000000200000002000000
+  eatFoodSpeedPerSeceond:
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
   villianTimer: 0
   needNewVillianTimerSetting: 1
   isCustomerDestoy: 0

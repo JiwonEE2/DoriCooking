@@ -71,6 +71,7 @@ public class VillianSpawner : MonoBehaviour
 			{
 				GameManager.Instance.isCustomerDestoy = false;
 			}
+			// 20퍼센트의 확률
 			else if (Random.Range(0, 5) == 0)
 			{
 				Instantiate(tableVillianPrefab, transform);
