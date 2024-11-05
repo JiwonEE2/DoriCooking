@@ -21,10 +21,18 @@ public class CustomerPrefab : MonoBehaviour
 	public float eatFoodTime = 0;
 
 	public bool isGetAllFood = false;
-	public bool isGoTable = false;
+	public bool isGoingTable = false;
+	private bool isGetTable = false;
+
+	private SpriteRenderer gettenObjectSpriteRenderer;
+	private Sprite foodSprite;
 
 	private void Start()
 	{
+		gettenObjectSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+		foodSprite = SpriteManager.Instance.foodSprite;
+		gettenObjectSpriteRenderer.sprite = foodSprite;
+		gettenObjectSpriteRenderer.enabled = false;
 		spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 		spriteRenderer.sortingOrder = 4;
 		spriteRenderer.sprite = customerData.sprite;
@@ -34,6 +42,16 @@ public class CustomerPrefab : MonoBehaviour
 
 	private void Update()
 	{
+		// 음식 가지면 음식 스프라이트 표시하기
+		if (foodNum > 0 && isGetTable == false)
+		{
+			gettenObjectSpriteRenderer.enabled = true;
+		}
+		else
+		{
+			gettenObjectSpriteRenderer.enabled = false;
+		}
+
 		// 판매할 수 있을 때. 빌런도 없어야 함
 		if (GameManager.Instance.isSellingFood && GameManager.Instance.isCounterVillianSpawn == false)
 		{
@@ -57,7 +75,7 @@ public class CustomerPrefab : MonoBehaviour
 		if (isGetAllFood)
 		{
 			// 테이블에 가지 았았고,
-			if (false == isGoTable)
+			if (false == isGoingTable)
 			{
 				// 테이블이 비어있으면, 돈주고,테이블에 간다.
 				if (TableController.Instance.emptyTables.Count > 0)
@@ -66,13 +84,13 @@ public class CustomerPrefab : MonoBehaviour
 					GameManager.Instance.isCustomerStanding = false;
 					Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
 					GoEmptyTable();
-					isGoTable = true;
+					isGoingTable = true;
 					StartCoroutine(MovingCoroutine());
 				}
 			}
 		}
 
-		if (isGoTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
+		if (isGoingTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
 		{
 			StopCoroutine(MovingCoroutine());
 		}
@@ -87,7 +105,7 @@ public class CustomerPrefab : MonoBehaviour
 
 	public IEnumerator MovingCoroutine()
 	{
-		while (isGoTable)
+		while (isGoingTable)
 		{
 			// 테이블에 가는 중
 			while ((Vector2)transform.position != currentTable.GetComponent<TablePrefab>().customerPos)
@@ -135,6 +153,7 @@ public class CustomerPrefab : MonoBehaviour
 			// 6. 근데 두 방향 다 증분을 감소시킬 수 없다면 해당 방향을 빠져나올 수 있도록 반대 장애물을 감소시킨다.
 
 			// 테이블에 갔으면,
+			isGetTable = true;
 			// 덜 먹었으면 먹고
 			// 테이블 위에 음식 스프라이트 표시
 			currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
