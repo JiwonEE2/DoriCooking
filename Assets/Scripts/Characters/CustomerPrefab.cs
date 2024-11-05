@@ -237,7 +237,6 @@ public class CustomerPrefab : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		print("Ãæµ¹");
 		isContact = true;
 		StartCoroutine(StayCoroutine());
 	}
