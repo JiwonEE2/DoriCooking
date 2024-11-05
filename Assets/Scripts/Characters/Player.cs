@@ -29,10 +29,9 @@ public class Player : MonoBehaviour
 
 	public Counter counter;
 
-	[Tooltip("들고 있을 때 표시될 아이템(렌더러가 포함된 아이템 객체)")]
-	public Sprite moneySprite;
-	public Sprite foodSprite;
-	public Sprite trashSprite;
+	private Sprite moneySprite;
+	private Sprite foodSprite;
+	private Sprite trashSprite;
 
 	[SerializeField]
 	private Sprite showingItemSprite;
@@ -48,6 +47,9 @@ public class Player : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		moneySprite = SpriteManager.Instance.moneySprite;
+		foodSprite = SpriteManager.Instance.foodSprite;
+		trashSprite = SpriteManager.Instance.trashSprite;
 		gottenItemShowObjectSpriteRenderer = gottenItemShowObject.AddComponent<SpriteRenderer>();
 		gottenItemShowObjectSpriteRenderer.sortingOrder = 5;
 	}
