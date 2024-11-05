@@ -31,6 +31,8 @@ public class CustomerPrefab : MonoBehaviour
 	private bool isWaitForCleanCoroutineStart = false;
 	private bool isContact = false;
 
+	private bool isEatCoroutineStart = false;
+
 	private void Start()
 	{
 		gettenObjectSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -42,6 +44,8 @@ public class CustomerPrefab : MonoBehaviour
 		spriteRenderer.sprite = customerData.sprite;
 		foodRequireNum = Random.Range(customerData.minFoodNum, customerData.maxFoodNum + 1);
 		spriteRenderer.sortingOrder = 4;
+
+		StartCoroutine(EatCoroutine());
 	}
 
 	private void Update()
@@ -110,6 +114,15 @@ public class CustomerPrefab : MonoBehaviour
 		if (isGoingTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
 		{
 			StopCoroutine(MovingCoroutine());
+			if (isEatCoroutineStart == false)
+			{
+				isEatCoroutineStart = true;
+			}
+			if (foodNum <= 0)
+			{
+				StopCoroutine(EatCoroutine());
+				CustomerDestroy();
+			}
 		}
 	}
 
@@ -189,25 +202,37 @@ public class CustomerPrefab : MonoBehaviour
 			// 덜 먹었으면 먹고
 			// 테이블 위에 음식 스프라이트 표시
 			currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
-			if (foodNum > 0)
+			yield return null;
+		}
+		yield return null;
+	}
+
+	public IEnumerator EatCoroutine()
+	{
+		while (true)
+		{
+			if (isEatCoroutineStart && foodNum > 0)
 			{
-				foodNum -= GameManager.Instance.eatFoodSpeedPerSeceond[currentTable.GetComponent<TablePrefab>().tableNum];
+				foodNum--;
 				currentTable.GetComponent<TablePrefab>().trashCount++;
-				yield return new WaitForSeconds(1);
+				yield return new WaitForSeconds(1f / GameManager.Instance.eatFoodSpeedPerSeceond[currentTable.GetComponent<TablePrefab>().tableNum]);
 			}
-			// 다먹었으면 쓰레기 생성하고 손님 사라지기
 			else
 			{
-				currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.trashSprite;
-				TableController.Instance.trashedTables.Add(currentTable);
-				GameManager.Instance.isCustomerDestoy = true;
-				GameManager.Instance.destroyedCustomerPosition = transform.position;
-				GameManager.Instance.destroyedCustomerTableNum = currentTable.GetComponent<TablePrefab>().tableNum;
-				Destroy(gameObject);
 				yield return null;
 			}
 		}
-		yield return null;
+	}
+
+	public void CustomerDestroy()
+	{
+		// 다먹었으면 쓰레기 생성하고 손님 사라지기
+		currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.trashSprite;
+		TableController.Instance.trashedTables.Add(currentTable);
+		GameManager.Instance.isCustomerDestoy = true;
+		GameManager.Instance.destroyedCustomerPosition = transform.position;
+		GameManager.Instance.destroyedCustomerTableNum = currentTable.GetComponent<TablePrefab>().tableNum;
+		Destroy(gameObject);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

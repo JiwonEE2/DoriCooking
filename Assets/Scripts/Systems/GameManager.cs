@@ -36,7 +36,7 @@ public class GameManager : SingletonManager<GameManager>
 	public bool isCounterUp = false;
 
 	[Tooltip("초당 음식 먹는 속도")]
-	public int[] eatFoodSpeedPerSeceond = { 2, 2, 2, 2, 2, 2 };
+	public float[] eatFoodSpeedPerSeceond = { 2f, 2f, 2f, 2f, 2f, 2f };
 
 	public float villianTimer = 0;
 	public bool needNewVillianTimerSetting = true;
