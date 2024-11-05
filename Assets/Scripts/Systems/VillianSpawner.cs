@@ -34,7 +34,6 @@ public class VillianSpawner : MonoBehaviour
 		// 빌런이 삭제되어 새로운 타이머 세팅이 필요하다면
 		if (GameManager.Instance.needNewVillianTimerSetting)
 		{
-			print("타이머 세팅");
 			spawnTime = Random.Range(minTime, maxTime);
 			GameManager.Instance.needNewVillianTimerSetting = false;
 		}
@@ -45,7 +44,6 @@ public class VillianSpawner : MonoBehaviour
 		// 무전취식, 전화, 절도 빌런의 생성
 		if (GameManager.Instance.villianTimer > spawnTime && UIManager.Instance.isVillianSpawn == false)
 		{
-			print("빌런 생성");
 			// 셋 중 랜덤으로 하나 골라서 해당 빌런의 포지션을 세팅하기
 			selectedVillian = (VILLIAN)Random.Range(0, 3);
 			while (selectedVillian == VILLIAN.COUNTER && GameManager.Instance.isCustomerStanding)

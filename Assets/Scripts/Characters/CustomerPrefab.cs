@@ -27,6 +27,9 @@ public class CustomerPrefab : MonoBehaviour
 	private SpriteRenderer gettenObjectSpriteRenderer;
 	private Sprite foodSprite;
 
+	private bool noEmptyTable = false;
+	private bool isStayCoroutineStart = false;
+
 	private void Start()
 	{
 		gettenObjectSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -80,12 +83,25 @@ public class CustomerPrefab : MonoBehaviour
 				// 테이블이 비어있으면, 돈주고,테이블에 간다.
 				if (TableController.Instance.emptyTables.Count > 0)
 				{
-					GameManager.Instance.customerTimer = 0;
-					GameManager.Instance.isCustomerStanding = false;
-					Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
-					GoEmptyTable();
-					isGoingTable = true;
-					StartCoroutine(MovingCoroutine());
+					if (noEmptyTable == true && isStayCoroutineStart == false)
+					{
+						print("대기 코루틴 시작");
+						StartCoroutine(StayCoroutine());
+					}
+					else if (noEmptyTable == false)
+					{
+						GameManager.Instance.customerTimer = 0;
+						GameManager.Instance.isCustomerStanding = false;
+						Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
+						GoEmptyTable();
+						isGoingTable = true;
+						StartCoroutine(MovingCoroutine());
+					}
+				}
+				// 테이블이 비어있지 않으면 대기 코루틴 시작
+				else
+				{
+					noEmptyTable = true;
 				}
 			}
 		}
@@ -101,6 +117,14 @@ public class CustomerPrefab : MonoBehaviour
 		// 비어있는 테이블 삭제하고 점령된 테이블에 추가하기
 		currentTable = TableController.Instance.emptyTables[0];
 		TableController.Instance.emptyTables.Remove(currentTable);
+	}
+
+	public IEnumerator StayCoroutine()
+	{
+		print("대기 코루틴 돈다");
+		isStayCoroutineStart = true;
+		yield return new WaitForSeconds(1f);
+		noEmptyTable = false;
 	}
 
 	public IEnumerator MovingCoroutine()
