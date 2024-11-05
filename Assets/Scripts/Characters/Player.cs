@@ -256,7 +256,6 @@ public class Player : MonoBehaviour
 		{
 			isHorizontalMove = horizontal != 0;
 		}
-
 		if (isHorizontalMove)
 		{
 			transform.Translate(new Vector2(horizontal, 0) * Time.deltaTime * GameManager.Instance.playerMoveSpeed);

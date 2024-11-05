@@ -28,7 +28,8 @@ public class CustomerPrefab : MonoBehaviour
 	private Sprite foodSprite;
 
 	private bool noEmptyTable = false;
-	private bool isStayCoroutineStart = false;
+	private bool isWaitForCleanCoroutineStart = false;
+	private bool isContact = false;
 
 	private void Start()
 	{
@@ -83,13 +84,13 @@ public class CustomerPrefab : MonoBehaviour
 				// 테이블이 비어있으면, 돈주고,테이블에 간다.
 				if (TableController.Instance.emptyTables.Count > 0)
 				{
-					if (noEmptyTable == true && isStayCoroutineStart == false)
+					if (noEmptyTable == true && isWaitForCleanCoroutineStart == false)
 					{
-						print("대기 코루틴 시작");
-						StartCoroutine(StayCoroutine());
+						StartCoroutine(WaitForCleanCoroutine());
 					}
 					else if (noEmptyTable == false)
 					{
+						StopCoroutine(WaitForCleanCoroutine());
 						GameManager.Instance.customerTimer = 0;
 						GameManager.Instance.isCustomerStanding = false;
 						Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
@@ -119,10 +120,9 @@ public class CustomerPrefab : MonoBehaviour
 		TableController.Instance.emptyTables.Remove(currentTable);
 	}
 
-	public IEnumerator StayCoroutine()
+	public IEnumerator WaitForCleanCoroutine()
 	{
-		print("대기 코루틴 돈다");
-		isStayCoroutineStart = true;
+		isWaitForCleanCoroutineStart = true;
 		yield return new WaitForSeconds(1f);
 		noEmptyTable = false;
 	}
@@ -140,32 +140,40 @@ public class CustomerPrefab : MonoBehaviour
 				float x = currentTable.GetComponent<TablePrefab>().customerPos.x - transform.position.x;
 				float y = currentTable.GetComponent<TablePrefab>().customerPos.y - transform.position.y;
 
-				// 2. 증분이 같아질 때까지 더 큰 증분을 감소시킨다.
-				if (Mathf.Abs(x) > Mathf.Abs(y))
+				if (isContact == false)
 				{
-					if (x < 0)
+					// 2. 증분이 같아질 때까지 더 큰 증분을 감소시킨다.
+					if (Mathf.Abs(x) > Mathf.Abs(y))
 					{
-						transform.Translate(new Vector2(-1, 0));
-						yield return new WaitForSeconds(1 / moveSpeed);
+						if (x < 0)
+						{
+							// 해당 위치에서 갈 수 없는 경우
+							transform.Translate(new Vector2(-1, 0));
+							yield return new WaitForSeconds(1 / moveSpeed);
+						}
+						else
+						{
+							transform.Translate(new Vector2(1, 0));
+							yield return new WaitForSeconds(1 / moveSpeed);
+						}
 					}
 					else
 					{
-						transform.Translate(new Vector2(1, 0));
-						yield return new WaitForSeconds(1 / moveSpeed);
+						if (y < 0)
+						{
+							transform.Translate(new Vector2(0, -1));
+							yield return new WaitForSeconds(1 / moveSpeed);
+						}
+						else
+						{
+							transform.Translate(new Vector2(0, 1));
+							yield return new WaitForSeconds(1 / moveSpeed);
+						}
 					}
 				}
 				else
 				{
-					if (y < 0)
-					{
-						transform.Translate(new Vector2(0, -1));
-						yield return new WaitForSeconds(1 / moveSpeed);
-					}
-					else
-					{
-						transform.Translate(new Vector2(0, 1));
-						yield return new WaitForSeconds(1 / moveSpeed);
-					}
+					yield return null;
 				}
 			}
 			// 3. 이때, 장애물이 있다면 다른 증분을 감소시킨다.
@@ -200,5 +208,18 @@ public class CustomerPrefab : MonoBehaviour
 			}
 		}
 		yield return null;
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		print("충돌");
+		isContact = true;
+		StartCoroutine(StayCoroutine());
+	}
+
+	public IEnumerator StayCoroutine()
+	{
+		yield return new WaitForSeconds(1f);
+		isContact = false;
 	}
 }
