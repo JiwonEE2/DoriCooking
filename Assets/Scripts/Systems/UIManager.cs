@@ -31,7 +31,7 @@ public class UIManager : SingletonManager<UIManager>
 
 	private void Update()
 	{
-		moneyText.text = money.ToString();
+		moneyText.text = $"$ {money}";
 		levelText.text = GameManager.Instance.level.ToString();
 
 		if (Input.GetKeyDown(KeyCode.Escape))
