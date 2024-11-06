@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
 			if (currentGottenItem == ITEM.MONEY)
 			{
 				// 가진만큼 매니저에 넣고
-				UIManager.Instance.money += gottenItemNum;
+				UIManager.Instance.money += 10 * gottenItemNum;
 				// 내 돈은 0으로
 				gottenItemNum = 0;
 			}
