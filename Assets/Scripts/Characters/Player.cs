@@ -27,39 +27,40 @@ public class Player : MonoBehaviour
 	public Cooker cooker0;
 	public Cooker cooker1;
 
-	public Counter counter;
+	private Counter counter;
 
 	private Sprite moneySprite;
 	private Sprite foodSprite;
 	private Sprite trashSprite;
 
-	[SerializeField]
 	private Sprite showingItemSprite;
 	public GameObject gottenItemShowObject;
 
-	[SerializeField]
 	private SpriteRenderer gottenItemShowObjectSpriteRenderer;
 
 	// 쓰레기 처리
 	public float trashcanTimer = 0;
 	public bool isTrashcanZone = false;
 
-	// Start is called before the first frame update
-	void Start()
+	public GameObject bubble;
+
+	private void Start()
 	{
 		moneySprite = SpriteManager.Instance.moneySprite;
 		foodSprite = SpriteManager.Instance.foodSprite;
 		trashSprite = SpriteManager.Instance.trashSprite;
 		gottenItemShowObjectSpriteRenderer = gottenItemShowObject.AddComponent<SpriteRenderer>();
-		gottenItemShowObjectSpriteRenderer.sortingOrder = 5;
+		gottenItemShowObjectSpriteRenderer.sortingOrder = 8;
 		animator = GetComponentInChildren<Animator>();
 	}
 
-	// Update is called once per frame
-	void Update()
+	private void Update()
 	{
 		// 이동 함수
-		Moving();
+		if (Time.timeScale == 1)
+		{
+			Moving();
+		}
 		// 쓰레기 처리
 		TrashThrow();
 		// 가진 아이템 보여주기
@@ -88,15 +89,19 @@ public class Player : MonoBehaviour
 		switch (currentGottenItem)
 		{
 			case ITEM.NONE:
+				bubble.SetActive(false);
 				gottenItemShowObjectSpriteRenderer.sprite = null;
 				return;
 			case ITEM.MONEY:
+				bubble.SetActive(true);
 				gottenItemShowObjectSpriteRenderer.sprite = moneySprite;
 				break;
 			case ITEM.FOOD:
+				bubble.SetActive(true);
 				gottenItemShowObjectSpriteRenderer.sprite = foodSprite;
 				break;
 			case ITEM.TRASH:
+				bubble.SetActive(true);
 				gottenItemShowObjectSpriteRenderer.sprite = trashSprite;
 				break;
 		}
@@ -237,8 +242,8 @@ public class Player : MonoBehaviour
 	public void Moving()
 	{
 		// 이동 구현 다시
-		horizontal = Input.GetAxis("Horizontal");
-		vertical = Input.GetAxis("Vertical");
+		horizontal = Input.GetAxisRaw("Horizontal");
+		vertical = Input.GetAxisRaw("Vertical");
 
 		hDown = Input.GetButtonDown("Horizontal");
 		vDown = Input.GetButtonDown("Vertical");
@@ -269,19 +274,18 @@ public class Player : MonoBehaviour
 		}
 
 		// Animation
-		if (animator.GetInteger("hAxis") != (int)horizontal)
+		if (animator.GetInteger("hAxis") != horizontal)
 		{
 			animator.SetBool("isChange", true);
 			animator.SetInteger("hAxis", (int)horizontal);
 		}
-		else if (animator.GetInteger("vAxis") != (int)vertical)
+		else if (animator.GetInteger("vAxis") != vertical)
 		{
 			animator.SetBool("isChange", true);
 			animator.SetInteger("vAxis", (int)vertical);
 		}
 		else
 		{
-
 			animator.SetBool("isChange", false);
 		}
 	}
