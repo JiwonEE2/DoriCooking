@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 	public bool vDown = false;
 	public bool hUp = false;
 	public bool vUp = false;
+	private Animator animator;
 
 	public int gottenItemNum = 0;
 	[Tooltip("현재 가지고 있는 아이템 종류")]
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
 		trashSprite = SpriteManager.Instance.trashSprite;
 		gottenItemShowObjectSpriteRenderer = gottenItemShowObject.AddComponent<SpriteRenderer>();
 		gottenItemShowObjectSpriteRenderer.sortingOrder = 5;
+		animator = GetComponentInChildren<Animator>();
 	}
 
 	// Update is called once per frame
@@ -255,6 +257,8 @@ public class Player : MonoBehaviour
 		{
 			isHorizontalMove = horizontal != 0;
 		}
+
+		// Move
 		if (isHorizontalMove)
 		{
 			transform.Translate(new Vector2(horizontal, 0) * Time.deltaTime * GameManager.Instance.playerMoveSpeed);
@@ -262,6 +266,22 @@ public class Player : MonoBehaviour
 		else if (!isHorizontalMove)
 		{
 			transform.Translate(new Vector2(0, vertical) * Time.deltaTime * GameManager.Instance.playerMoveSpeed);
+		}
+
+		// Animation
+		if (animator.GetInteger("hAxis") != (int)horizontal)
+		{
+			animator.SetBool("isChange", true);
+			animator.SetInteger("hAxis", (int)horizontal);
+		}
+		else if (animator.GetInteger("vAxis") != (int)vertical)
+		{
+			animator.SetBool("isChange", true);
+			animator.SetInteger("vAxis", (int)vertical);
+		}
+		else
+		{
+			animator.SetBool("isChange", false);
 		}
 	}
 }
