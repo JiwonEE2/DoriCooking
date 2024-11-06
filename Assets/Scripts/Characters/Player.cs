@@ -281,6 +281,7 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
+
 			animator.SetBool("isChange", false);
 		}
 	}
