@@ -33,13 +33,16 @@ public class UIManager : SingletonManager<UIManager>
 	{
 		moneyText.text = money.ToString();
 		levelText.text = GameManager.Instance.level.ToString();
+
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
+			// 강화창 열려 있으면 닫고
 			if (enforcePopup.activeSelf)
 			{
 				enforcePopup.SetActive(false);
 				Time.timeScale = 1;
 			}
+			// 아니면 일시정지 창을 연다.
 			else
 			{
 				pausePopup.SetActive(true);
@@ -49,12 +52,6 @@ public class UIManager : SingletonManager<UIManager>
 
 		// 빌런 스폰 시 UI 활성화 및 소멸시 비활성화
 		villianSign.SetActive(isVillianSpawn);
-	}
-
-	public void OnClickResumeButton()
-	{
-		pausePopup.SetActive(false);
-		Time.timeScale = 1;
 	}
 
 	public void OnClickSpeedUpButton()
