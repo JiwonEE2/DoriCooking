@@ -97,7 +97,10 @@ public class CustomerPrefab : MonoBehaviour
 						StopCoroutine(WaitForCleanCoroutine());
 						GameManager.Instance.customerTimer = 0;
 						GameManager.Instance.isCustomerStanding = false;
-						Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
+						for (int i = 0; i < foodRequireNum; i++)
+						{
+							Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
+						}
 						GoEmptyTable();
 						isGoingTable = true;
 						StartCoroutine(MovingCoroutine());
