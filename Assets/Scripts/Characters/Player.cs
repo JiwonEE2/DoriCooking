@@ -31,14 +31,9 @@ public class Player : MonoBehaviour
 	private Sprite foodSprite;
 	private Sprite trashSprite;
 
-	private Sprite showingItemSprite;
 	public GameObject gottenItemShowObject;
 
 	private SpriteRenderer gottenItemShowObjectSpriteRenderer;
-
-	// 쓰레기 처리
-	public float trashcanTimer = 0;
-	public bool isTrashcanZone = false;
 
 	public GameObject bubble;
 
@@ -96,18 +91,7 @@ public class Player : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.CompareTag("MoneySaveZone") && GameManager.Instance.isMoneyBoxVillianSpawn == false)
-		{
-			// 가진 게 돈일 때만
-			if (currentGottenItem == ITEM.MONEY)
-			{
-				// 가진만큼 매니저에 넣고
-				UIManager.Instance.money += 10 * gottenItemNum;
-				// 내 돈은 0으로
-				gottenItemNum = 0;
-			}
-		}
-		else if (collision.CompareTag("EnforceZone"))
+		if (collision.CompareTag("EnforceZone"))
 		{
 			if (GameManager.Instance.isMoneyBoxVillianSpawn == false)
 			{
