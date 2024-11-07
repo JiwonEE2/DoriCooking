@@ -19,6 +19,11 @@ public class Cooker : MonoBehaviour
 
 	private void Update()
 	{
+		FoodRender();
+	}
+
+	private void FoodRender()
+	{
 		if (foodCount > 0)
 		{
 			objectSpriteRenderer1.sprite = SpriteManager.Instance.foodSprite;

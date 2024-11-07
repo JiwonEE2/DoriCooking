@@ -5,6 +5,7 @@ using UnityEngine;
 public class TableVillian : Villian
 {
 	private int villianSpawnedTableNum;
+
 	private void Awake()
 	{
 		villianSpawnedTableNum = GameManager.Instance.destroyedCustomerTableNum;

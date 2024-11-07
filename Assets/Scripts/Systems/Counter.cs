@@ -21,17 +21,10 @@ public class Counter : MonoBehaviour
 	private void Update()
 	{
 		CustomerSpawn();
-		if (GameManager.Instance.foodCount > 0)
-		{
-			counterOnFoodRenderer.enabled = true;
-		}
-		else
-		{
-			counterOnFoodRenderer.enabled = false;
-		}
+		FoodRender();
 	}
 
-	public void CustomerSpawn()
+	private void CustomerSpawn()
 	{
 		// 손님 생성될 자리가 비어있고, 손님 삭제된 지 1초가 지났을 때
 		if (GameManager.Instance.isCustomerStanding == false && GameManager.Instance.customerTimer >= spawnDuration && GameManager.Instance.isCounterVillianSpawn == false)
@@ -46,6 +39,18 @@ public class Counter : MonoBehaviour
 				customer = Instantiate(customerPrefab2, spawnPoint, Quaternion.identity);
 			}
 			GameManager.Instance.isCustomerStanding = true;
+		}
+	}
+
+	private void FoodRender()
+	{
+		if (GameManager.Instance.foodCount > 0)
+		{
+			counterOnFoodRenderer.enabled = true;
+		}
+		else
+		{
+			counterOnFoodRenderer.enabled = false;
 		}
 	}
 }

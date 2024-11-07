@@ -13,11 +13,11 @@ public class Player : MonoBehaviour
 	// 이동 구현을 위한 변수
 	private float horizontal;
 	private float vertical;
-	public bool isHorizontalMove = false;
-	public bool hDown = false;
-	public bool vDown = false;
-	public bool hUp = false;
-	public bool vUp = false;
+	private bool isHorizontalMove = false;
+	private bool hDown = false;
+	private bool vDown = false;
+	private bool hUp = false;
+	private bool vUp = false;
 	private Animator animator;
 
 	public int gottenItemNum = 0;

@@ -7,14 +7,7 @@ public class TableController : SingletonManager<TableController>
 	public List<GameObject> emptyTables;
 	public List<GameObject> trashedTables;
 
-	// Start is called before the first frame update
-	void Start()
-	{
-
-	}
-
-	// Update is called once per frame
-	void Update()
+	private void Update()
 	{
 		for (int i = 0; i < trashedTables.Count; i++)
 		{

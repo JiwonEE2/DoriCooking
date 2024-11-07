@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class CookerVillian : Villian
 {
 	private int cookerNum;
+
 	private void Awake()
 	{
 		switch (Random.Range(0, 4))
