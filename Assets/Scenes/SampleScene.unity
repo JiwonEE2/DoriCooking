@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 56967900}
   - component: {fileID: 56967901}
   m_Layer: 0
-  m_Name: ObjectRenderer (1)
+  m_Name: Renderer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,12 +298,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56967899}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 702814452}
+  m_Father: {fileID: 981863913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &56967901
 SpriteRenderer:
@@ -4475,8 +4475,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 409181058}
-  - {fileID: 913764231}
-  - {fileID: 886400285}
+  - {fileID: 2116870480}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &693768408
@@ -4493,8 +4492,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cookerNum: 0
   foodCount: 0
-  objectSpriteRenderer1: {fileID: 913764232}
-  objectSpriteRenderer2: {fileID: 886400286}
 --- !u!1 &697093443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4645,8 +4642,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 766275169}
-  - {fileID: 1764646167}
-  - {fileID: 56967900}
+  - {fileID: 981863913}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &702814453
@@ -4663,8 +4659,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cookerNum: 1
   foodCount: 0
-  objectSpriteRenderer1: {fileID: 1764646168}
-  objectSpriteRenderer2: {fileID: 56967901}
 --- !u!1 &766275168
 GameObject:
   m_ObjectHideFlags: 0
@@ -5331,7 +5325,7 @@ GameObject:
   - component: {fileID: 886400285}
   - component: {fileID: 886400286}
   m_Layer: 0
-  m_Name: ObjectRenderer (1)
+  m_Name: Renderer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5345,12 +5339,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886400284}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 693768407}
+  m_Father: {fileID: 2116870480}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &886400286
 SpriteRenderer:
@@ -5415,7 +5409,7 @@ GameObject:
   - component: {fileID: 913764231}
   - component: {fileID: 913764232}
   m_Layer: 0
-  m_Name: ObjectRenderer
+  m_Name: Renderer0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5429,12 +5423,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913764230}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 693768407}
+  m_Father: {fileID: 2116870480}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &913764232
 SpriteRenderer:
@@ -5619,6 +5613,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954541895}
   m_CullTransparentMesh: 1
+--- !u!1 &981863912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 981863913}
+  m_Layer: 0
+  m_Name: ObjectRenderer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &981863913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981863912}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1764646167}
+  - {fileID: 56967900}
+  m_Father: {fileID: 702814452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &992577357
 GameObject:
   m_ObjectHideFlags: 0
@@ -11217,11 +11244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7887c5b52338eda4aa180a42fb27ed57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHorizontalMove: 0
-  hDown: 0
-  vDown: 0
-  hUp: 0
-  vUp: 0
   gottenItemNum: 0
   currentGottenItem: 3
   cooker0: {fileID: 693768408}
@@ -11403,7 +11425,7 @@ GameObject:
   - component: {fileID: 1764646167}
   - component: {fileID: 1764646168}
   m_Layer: 0
-  m_Name: ObjectRenderer
+  m_Name: Renderer0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11417,12 +11439,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764646166}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 702814452}
+  m_Father: {fileID: 981863913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1764646168
 SpriteRenderer:
@@ -12901,6 +12923,39 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &2116870479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116870480}
+  m_Layer: 0
+  m_Name: ObjectRenderer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116870480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116870479}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 913764231}
+  - {fileID: 886400285}
+  m_Father: {fileID: 693768407}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &145935684587452830
 Transform:
   m_ObjectHideFlags: 0

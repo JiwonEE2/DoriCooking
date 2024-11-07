@@ -6,3 +6,15 @@
 1. 플레이어 애니메이션 0
 2. 손님 종류 늘리고 애니메이션
 3. 강화에 따른 스프라이트와 애니메이션 변경
+
+------------------------------------------------
+[ sorting layer ]
+0. ground
+1. carpet
+2. chair
+3. table
+4. table's bubble
+5. table's item
+6. character (player, customer)
+7. character's bubble
+8. character's item

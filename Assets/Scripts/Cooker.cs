@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class Cooker : MonoBehaviour
 {
+	private GameObject objectRenderer;
+	private SpriteRenderer objectSpriteRenderer1;
+	private SpriteRenderer objectSpriteRenderer2;
+
 	public int cookerNum;
 	public int foodCount = 0;
 
-	public SpriteRenderer objectSpriteRenderer1;
-	public SpriteRenderer objectSpriteRenderer2;
-
 	private void Start()
 	{
-		objectSpriteRenderer1.sortingOrder = 6;
-		objectSpriteRenderer2.sortingOrder = 6;
+		objectRenderer = transform.Find("ObjectRenderer").gameObject;
+
+		objectSpriteRenderer1 = objectRenderer.transform.Find("Renderer0").GetComponent<SpriteRenderer>();
+		objectSpriteRenderer2 = objectRenderer.transform.Find("Renderer1").GetComponent<SpriteRenderer>();
+		objectSpriteRenderer1.sprite = SpriteManager.Instance.foodSprite;
+		objectSpriteRenderer2.sprite = SpriteManager.Instance.foodSprite;
+		objectSpriteRenderer1.sortingLayerName = "tableItem";
+		objectSpriteRenderer2.sortingLayerName = "tableItem";
 		StartCoroutine(CookCoroutine());
 	}
 
@@ -26,13 +33,11 @@ public class Cooker : MonoBehaviour
 	{
 		if (foodCount > 0)
 		{
-			objectSpriteRenderer1.sprite = SpriteManager.Instance.foodSprite;
-			objectSpriteRenderer2.sprite = SpriteManager.Instance.foodSprite;
+			objectRenderer.SetActive(true);
 		}
 		else
 		{
-			objectSpriteRenderer1.sprite = null;
-			objectSpriteRenderer2.sprite = null;
+			objectRenderer.SetActive(false);
 		}
 	}
 
@@ -51,7 +56,7 @@ public class Cooker : MonoBehaviour
 			}
 			else
 			{
-				yield return new WaitForEndOfFrame();
+				yield return null;
 			}
 		}
 	}

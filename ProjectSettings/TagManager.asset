@@ -48,3 +48,30 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ground
+    uniqueID: 3030619677
+    locked: 0
+  - name: carpet
+    uniqueID: 1474017405
+    locked: 0
+  - name: chair
+    uniqueID: 2960504915
+    locked: 0
+  - name: table
+    uniqueID: 510684587
+    locked: 0
+  - name: tableBubble
+    uniqueID: 1649853385
+    locked: 0
+  - name: tableItem
+    uniqueID: 3800547975
+    locked: 0
+  - name: character
+    uniqueID: 1325613485
+    locked: 0
+  - name: characterBubble
+    uniqueID: 2426905943
+    locked: 0
+  - name: characterItem
+    uniqueID: 3233696831
+    locked: 0
