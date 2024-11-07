@@ -11,7 +11,8 @@ public class CustomerController : MonoBehaviour
 
 	private CustomerPrefab customer;
 
-	public List<CustomerPrefab> customers;
+	public List<CustomerPrefab> customers1;
+	public List<CustomerPrefab> customers2;
 
 	private void Update()
 	{
@@ -28,12 +29,12 @@ public class CustomerController : MonoBehaviour
 			if (ran * 100 <= GameManager.Instance.customerSpawnRate[GameManager.Instance.level - 1])
 			{
 				customer = Instantiate(customerPrefab1, spawnPoint, Quaternion.identity);
-				customers.Add(customer);
+				customers1.Add(customer);
 			}
 			else
 			{
 				customer = Instantiate(customerPrefab2, spawnPoint, Quaternion.identity);
-				customers.Add(customer);
+				customers2.Add(customer);
 			}
 			GameManager.Instance.isCustomerStanding = true;
 		}
@@ -42,12 +43,20 @@ public class CustomerController : MonoBehaviour
 	private void CustomerDestroy()
 	{
 		// 손님이 자리에서 밥 다먹으면 여기에서 삭제
-		for (int i = 0; i < customers.Count; i++)
+		for (int i = 0; i < customers1.Count; i++)
 		{
-			if (customers[i].readyDestroy)
+			if (customers1[i].readyDestroy)
 			{
-				Destroy(customers[i].gameObject);
-				customers.Remove(customers[i]);
+				Destroy(customers1[i].gameObject);
+				customers1.Remove(customers1[i]);
+			}
+		}
+		for (int i = 0; i < customers2.Count; i++)
+		{
+			if (customers2[i].readyDestroy)
+			{
+				Destroy(customers2[i].gameObject);
+				customers2.Remove(customers2[i]);
 			}
 		}
 	}

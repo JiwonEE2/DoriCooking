@@ -12,7 +12,7 @@ public class CustomerPrefab : MonoBehaviour
 
 	public GameObject moneyPrefab;
 
-	public GameObject currentTable;
+	public TablePrefab currentTable;
 
 	public Vector2 moneySpawnPoint = new Vector2(1, -4);
 	public int foodRequireNum;
@@ -20,19 +20,20 @@ public class CustomerPrefab : MonoBehaviour
 
 	public float eatFoodTime = 0;
 
+	// 음식을 다 나눠 주었는지 확인을 위함.
 	public bool isGetAllFood = false;
 	public bool isGoingTable = false;
+	// 테이블에 도착하였는지 확인. 음식을 가지고 있어도 도착한 후에는 스프라이트 표시를 하지 않기 위함.
 	private bool isGetTable = false;
 
 	private SpriteRenderer gettenObjectSpriteRenderer;
 	private Sprite foodSprite;
 
-	private bool noEmptyTable = false;
-	private bool isWaitForCleanCoroutineStart = false;
 	private bool isContact = false;
 
 	private bool isEatCoroutineStart = false;
 
+	// Customer Controller에서 해당 customer를 삭제하기 위한 변수
 	public bool readyDestroy = false;
 
 	private void Start()
@@ -52,70 +53,16 @@ public class CustomerPrefab : MonoBehaviour
 
 	private void Update()
 	{
+		// 음식 판매
+		// 음식은 다 받기 전에만 판매하고 이후에는 할 필요 없다.
+		// isGetAllFood를 여기에서 건드린다.
+		FoodDistribute();
+
 		// 음식 가지면 음식 스프라이트 표시하기
-		if (foodNum > 0 && isGetTable == false)
-		{
-			gettenObjectSpriteRenderer.enabled = true;
-		}
-		else
-		{
-			gettenObjectSpriteRenderer.enabled = false;
-		}
+		// 단, 테이블에 도착하기 전까지만. 테이블에 도착하면 테이블 위에 표시하게 된다.
+		FoodRender();
 
-		// 판매할 수 있을 때. 빌런도 없어야 함
-		if (GameManager.Instance.isSellingFood && GameManager.Instance.isCounterVillianSpawn == false)
-		{
-			// 시간도 지났고,음식을 덜 나눠 주었고, 카운터에 음식이 있을 때
-			if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodCount > 0 && isGetAllFood == false)
-			{
-				// 음식을 나눠준다
-				foodNum++;
-				GameManager.Instance.foodCount--;
-				GameManager.Instance.foodSellTimer = 0;
-			}
-		}
-
-		// 음식 다 받고, 
-		if (foodNum == foodRequireNum && isGetAllFood == false)
-		{
-			isGetAllFood = true;
-		}
-
-		// 음식을 다 받았었다면,
-		if (isGetAllFood)
-		{
-			// 테이블에 가지 았았고,
-			if (false == isGoingTable)
-			{
-				// 테이블이 비어있으면, 돈주고,테이블에 간다.
-				if (TableController.Instance.emptyTables.Count > 0)
-				{
-					if (noEmptyTable == true && isWaitForCleanCoroutineStart == false)
-					{
-						StartCoroutine(WaitForCleanCoroutine());
-					}
-					else if (noEmptyTable == false)
-					{
-						StopCoroutine(WaitForCleanCoroutine());
-						GameManager.Instance.customerTimer = 0;
-						GameManager.Instance.isCustomerStanding = false;
-						for (int i = 0; i < foodRequireNum; i++)
-						{
-							Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
-						}
-						GoEmptyTable();
-						isGoingTable = true;
-						StartCoroutine(MovingCoroutine());
-					}
-				}
-				// 테이블이 비어있지 않으면 대기 코루틴 시작
-				else
-				{
-					noEmptyTable = true;
-				}
-			}
-		}
-
+		// 이건 뭐지? 먹는거 시작인가
 		if (isGoingTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
 		{
 			StopCoroutine(MovingCoroutine());
@@ -130,18 +77,69 @@ public class CustomerPrefab : MonoBehaviour
 		}
 	}
 
+	private void FoodDistribute()
+	{
+		// 먼저, 음식을 다 나눠주었는 지 확인
+		if (isGetAllFood == false)
+		{
+			// 음식량이 충족하는 지 먼저 확인
+			if (foodNum >= foodRequireNum)
+			{
+				isGetAllFood = true;
+			}
+			// 판매할 수 있을 때. 빌런도 없어야 함
+			else if (GameManager.Instance.isSellingFood && GameManager.Instance.isCounterVillianSpawn == false)
+			{
+				// 시간도 지났고, 카운터에 음식이 있을 때
+				if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodCount > 0)
+				{
+					// 음식을 나눠준다
+					foodNum++;
+					GameManager.Instance.foodCount--;
+					GameManager.Instance.foodSellTimer = 0;
+				}
+			}
+		}
+		// 음식을 다 나눠 주었다면
+		else
+		{
+			// 테이블에 가지 았았고,
+			if (false == isGoingTable)
+			{
+				// 준비된 테이블이 있으면, 돈주고, 테이블에 간다.
+				if (TableController.Instance.readyTables.Count > 0)
+				{
+					GameManager.Instance.customerTimer = 0;
+					GameManager.Instance.isCustomerStanding = false;
+					for (int i = 0; i < foodRequireNum; i++)
+					{
+						Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
+					}
+					GoEmptyTable();
+					isGoingTable = true;
+					StartCoroutine(MovingCoroutine());
+				}
+			}
+		}
+	}
+
+	private void FoodRender()
+	{
+		if (foodNum > 0 && isGetTable == false)
+		{
+			gettenObjectSpriteRenderer.enabled = true;
+		}
+		else
+		{
+			gettenObjectSpriteRenderer.enabled = false;
+		}
+	}
+
 	public void GoEmptyTable()
 	{
 		// 비어있는 테이블 삭제하고 점령된 테이블에 추가하기
-		currentTable = TableController.Instance.emptyTables[0];
-		TableController.Instance.emptyTables.Remove(currentTable);
-	}
-
-	public IEnumerator WaitForCleanCoroutine()
-	{
-		isWaitForCleanCoroutineStart = true;
-		yield return new WaitForSeconds(1f);
-		noEmptyTable = false;
+		currentTable = TableController.Instance.readyTables[0];
+		TableController.Instance.readyTables.Remove(currentTable);
 	}
 
 	public IEnumerator MovingCoroutine()

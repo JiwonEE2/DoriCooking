@@ -10,6 +10,10 @@ public class TablePrefab : MonoBehaviour
 	public SpriteRenderer objectSpriteRenderer;
 	public bool isTableVillianSpawn = false;
 
+	public bool isReadyToGetCustomer = true;
+	// coroutine 한 번만 시행을 위함
+	private bool waitCoroutine = false;
+
 	private Player player;
 
 	private void Start()
@@ -19,12 +23,16 @@ public class TablePrefab : MonoBehaviour
 		isTableVillianSpawn = GameManager.Instance.isTableVillianSpawn[tableNum];
 		customerPos = new Vector2(transform.position.x, transform.position.y + 1);
 		objectSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
-		objectSpriteRenderer.sortingOrder = 6;
+		objectSpriteRenderer.sortingLayerName = "table";
 	}
 
 	private void Update()
 	{
 		isTableVillianSpawn = GameManager.Instance.isTableVillianSpawn[tableNum];
+		if (trashCount <= 0 && isReadyToGetCustomer == false && waitCoroutine == false)
+		{
+			StartCoroutine(ReadyCheckCoroutine());
+		}
 	}
 
 	private void OnTriggerStay2D(Collider2D collision)
@@ -41,5 +49,12 @@ public class TablePrefab : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	private IEnumerator ReadyCheckCoroutine()
+	{
+		waitCoroutine = true;
+		yield return new WaitForSeconds(1f);
+		isReadyToGetCustomer = true;
 	}
 }

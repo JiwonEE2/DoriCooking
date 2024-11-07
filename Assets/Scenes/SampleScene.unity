@@ -3566,6 +3566,8 @@ MonoBehaviour:
   customerPrefab2: {fileID: 7624765729245584185, guid: e00741565d9de884c928284ff8daec0f, type: 3}
   spawnPoint: {x: 2, y: -5}
   spawnDuration: 1
+  customers1: []
+  customers2: []
 --- !u!1 &559569206
 GameObject:
   m_ObjectHideFlags: 0
@@ -4783,13 +4785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9187625b5f793794ca1bdfb5ff2ad21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyTables:
-  - {fileID: 2680881616985092915}
-  - {fileID: 2269178825040671604}
-  - {fileID: 3347089413603474426}
-  - {fileID: 7391897694182437382}
-  - {fileID: 5910272794162633587}
-  - {fileID: 282045723970077811}
+  readyTables: []
   trashedTables: []
 --- !u!4 &871817628
 Transform:
@@ -12921,6 +12917,7 @@ MonoBehaviour:
   customerPos: {x: 6, y: -10}
   objectSpriteRenderer: {fileID: 0}
   isTableVillianSpawn: 0
+  isReadyToGetCustomer: 1
 --- !u!1 &282045723970077811
 GameObject:
   m_ObjectHideFlags: 0
@@ -13017,6 +13014,7 @@ MonoBehaviour:
   customerPos: {x: 10, y: -7}
   objectSpriteRenderer: {fileID: 0}
   isTableVillianSpawn: 0
+  isReadyToGetCustomer: 1
 --- !u!1 &2269178825040671604
 GameObject:
   m_ObjectHideFlags: 0
@@ -13104,6 +13102,7 @@ MonoBehaviour:
   customerPos: {x: 6, y: -7}
   objectSpriteRenderer: {fileID: 0}
   isTableVillianSpawn: 0
+  isReadyToGetCustomer: 1
 --- !u!61 &4497176436842953835
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13324,6 +13323,7 @@ MonoBehaviour:
   customerPos: {x: 10, y: -10}
   objectSpriteRenderer: {fileID: 0}
   isTableVillianSpawn: 0
+  isReadyToGetCustomer: 1
 --- !u!61 &7864080065028112137
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13386,6 +13386,7 @@ MonoBehaviour:
   customerPos: {x: 14, y: -7}
   objectSpriteRenderer: {fileID: 0}
   isTableVillianSpawn: 0
+  isReadyToGetCustomer: 1
 --- !u!114 &8544389517369552418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13403,6 +13404,7 @@ MonoBehaviour:
   customerPos: {x: 14, y: -10}
   objectSpriteRenderer: {fileID: 0}
   isTableVillianSpawn: 0
+  isReadyToGetCustomer: 1
 --- !u!61 &8801105796214971812
 BoxCollider2D:
   m_ObjectHideFlags: 0

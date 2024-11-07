@@ -18,6 +18,8 @@ public class GameManager : SingletonManager<GameManager>
 	public int foodCount = 0;
 	public int foodCountLimit = 99;
 
+	// 판매 자동화를 위함.
+	// 강화 전에는 플레이어가 foodDistribute에 trigger 되어야 활성화된다.
 	public bool isSellingFood = false;
 
 	[Tooltip("플레이어의 초당 이동 칸 수")]
