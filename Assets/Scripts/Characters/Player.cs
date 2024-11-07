@@ -91,16 +91,7 @@ public class Player : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.CompareTag("EnforceZone"))
-		{
-			if (GameManager.Instance.isMoneyBoxVillianSpawn == false)
-			{
-				UIManager.Instance.enforcePopup.SetActive(true);
-				Time.timeScale = 0;
-			}
-		}
-		// 카운터 빌런이 없을 때만 가능
-		else if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterVillianSpawn == false)
+		if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterVillianSpawn == false)
 		{
 			// 음식 나눠주기
 			GameManager.Instance.isSellingFood = true;
