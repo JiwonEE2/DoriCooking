@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Counter : MonoBehaviour
+public class CustomerSpawner : MonoBehaviour
 {
 	public CustomerPrefab customerPrefab1;
 	public CustomerPrefab customerPrefab2;
@@ -10,21 +10,13 @@ public class Counter : MonoBehaviour
 	public float spawnDuration = 1f;
 
 	private CustomerPrefab customer;
-	public SpriteRenderer counterOnFoodRenderer;
-
-	private void Start()
-	{
-		counterOnFoodRenderer.sprite = SpriteManager.Instance.foodSprite;
-		counterOnFoodRenderer.sortingOrder = 6;
-	}
 
 	private void Update()
 	{
-		CustomerSpawn();
-		FoodRender();
+		Spawn();
 	}
 
-	private void CustomerSpawn()
+	private void Spawn()
 	{
 		// 손님 생성될 자리가 비어있고, 손님 삭제된 지 1초가 지났을 때
 		if (GameManager.Instance.isCustomerStanding == false && GameManager.Instance.customerTimer >= spawnDuration && GameManager.Instance.isCounterVillianSpawn == false)
@@ -39,18 +31,6 @@ public class Counter : MonoBehaviour
 				customer = Instantiate(customerPrefab2, spawnPoint, Quaternion.identity);
 			}
 			GameManager.Instance.isCustomerStanding = true;
-		}
-	}
-
-	private void FoodRender()
-	{
-		if (GameManager.Instance.foodCount > 0)
-		{
-			counterOnFoodRenderer.enabled = true;
-		}
-		else
-		{
-			counterOnFoodRenderer.enabled = false;
 		}
 	}
 }
