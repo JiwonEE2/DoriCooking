@@ -33,6 +33,8 @@ public class CustomerPrefab : MonoBehaviour
 
 	private bool isEatCoroutineStart = false;
 
+	public bool readyDestroy = false;
+
 	private void Start()
 	{
 		gettenObjectSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -235,7 +237,7 @@ public class CustomerPrefab : MonoBehaviour
 		GameManager.Instance.destroyedCustomerPosition = transform.position;
 		GameManager.Instance.destroyedCustomerTableNum = currentTable.GetComponent<TablePrefab>().tableNum;
 		StopAllCoroutines();
-		Destroy(gameObject);
+		readyDestroy = true;
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

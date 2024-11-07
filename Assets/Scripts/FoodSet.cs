@@ -36,10 +36,13 @@ public class FoodSet : MonoBehaviour
 	{
 		if (collision.CompareTag("Player") && GameManager.Instance.isCounterVillianSpawn == false)
 		{
-			while (GameManager.Instance.foodCountLimit > GameManager.Instance.foodCount && player.gottenItemNum > 0)
+			if (player.currentGottenItem == Player.ITEM.FOOD || player.currentGottenItem == Player.ITEM.NONE)
 			{
-				player.gottenItemNum--;
-				GameManager.Instance.foodCount++;
+				while (GameManager.Instance.foodCountLimit > GameManager.Instance.foodCount && player.gottenItemNum > 0)
+				{
+					player.gottenItemNum--;
+					GameManager.Instance.foodCount++;
+				}
 			}
 		}
 	}
