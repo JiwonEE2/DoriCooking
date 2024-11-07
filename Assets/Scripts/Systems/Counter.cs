@@ -12,6 +12,10 @@ public class Counter : MonoBehaviour
 	private CustomerPrefab customer;
 	public SpriteRenderer counterOnFoodRenderer;
 
+	// Customer Pool
+	public CustomerPool customerPool1;
+	public CustomerPool customerPool2;
+
 	private void Start()
 	{
 		counterOnFoodRenderer.sprite = SpriteManager.Instance.foodSprite;
@@ -32,11 +36,13 @@ public class Counter : MonoBehaviour
 			float ran = Random.value;
 			if (ran * 100 <= GameManager.Instance.customerSpawnRate[GameManager.Instance.level - 1])
 			{
-				customer = Instantiate(customerPrefab1, spawnPoint, Quaternion.identity);
+				//customer = Instantiate(customerPrefab1, spawnPoint, Quaternion.identity);
+				customer = customerPool1.Pop();
 			}
 			else
 			{
-				customer = Instantiate(customerPrefab2, spawnPoint, Quaternion.identity);
+				//customer = Instantiate(customerPrefab2, spawnPoint, Quaternion.identity);
+				customer = customerPool2.Pop();
 			}
 			GameManager.Instance.isCustomerStanding = true;
 		}

@@ -25,7 +25,6 @@ public class CustomerPrefab : MonoBehaviour
 	private bool isGetTable = false;
 
 	private SpriteRenderer gettenObjectSpriteRenderer;
-	private Sprite foodSprite;
 
 	private bool noEmptyTable = false;
 	private bool isWaitForCleanCoroutineStart = false;
@@ -33,17 +32,44 @@ public class CustomerPrefab : MonoBehaviour
 
 	private bool isEatCoroutineStart = false;
 
+	// Customer Pool
+	private CustomerPool customerPool1;
+	private CustomerPool customerPool2;
+
+	// Spawn Point
+	public Vector2 spawnPoint = new Vector2(2, -5);
+
+	private void Awake()
+	{
+		customerPool1 = GameObject.Find("CustomerPool1").GetComponent<CustomerPool>();
+		customerPool2 = GameObject.Find("CustomerPool2").GetComponent<CustomerPool>();
+	}
+
 	private void Start()
 	{
-		gettenObjectSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
-		foodSprite = SpriteManager.Instance.foodSprite;
-		gettenObjectSpriteRenderer.sprite = foodSprite;
-		gettenObjectSpriteRenderer.enabled = false;
-		spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-		spriteRenderer.sortingOrder = 4;
+	}
+
+	private void OnEnable()
+	{
+		// Customer Render
+		spriteRenderer = transform.Find("Renderer").GetComponent<SpriteRenderer>();
 		spriteRenderer.sprite = customerData.sprite;
-		foodRequireNum = Random.Range(customerData.minFoodNum, customerData.maxFoodNum + 1);
 		spriteRenderer.sortingOrder = 4;
+
+		// GettenObject Render
+		gettenObjectSpriteRenderer = GameObject.Find("GettenObject").GetComponent<SpriteRenderer>();
+		gettenObjectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
+		gettenObjectSpriteRenderer.sortingOrder = 6;
+
+		gettenObjectSpriteRenderer.enabled = false;
+		foodRequireNum = Random.Range(customerData.minFoodNum, customerData.maxFoodNum + 1);
+		gameObject.transform.position = spawnPoint;
+
+		isGetAllFood = false;
+		isGoingTable = false;
+		isGetTable = false;
+		isContact = false;
+		isEatCoroutineStart = false;
 
 		StartCoroutine(EatCoroutine());
 	}
@@ -235,7 +261,15 @@ public class CustomerPrefab : MonoBehaviour
 		GameManager.Instance.destroyedCustomerPosition = transform.position;
 		GameManager.Instance.destroyedCustomerTableNum = currentTable.GetComponent<TablePrefab>().tableNum;
 		StopAllCoroutines();
-		Destroy(gameObject);
+		if (customerData.customerName == "Customer1")
+		{
+			customerPool1.Push(this);
+		}
+		else if (customerData.customerName == "Customer2")
+		{
+			customerPool2.Push(this);
+		}
+		//Destroy(gameObject);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
