@@ -62,31 +62,17 @@ public class Player : MonoBehaviour
 		{
 			Moving();
 		}
-		// 쓰레기 처리
-		TrashThrow();
 		// 가진 아이템 보여주기
 		GottenItemShow();
 	}
 
-	public void TrashThrow()
-	{
-		// 쓰레기 처리
-		if (isTrashcanZone)
-		{
-			trashcanTimer += Time.deltaTime;
-			if (trashcanTimer > 1)
-			{
-				gottenItemNum = 0;
-			}
-		}
-		if (gottenItemNum == 0)
-		{
-			currentGottenItem = ITEM.NONE;
-		}
-	}
-
 	public void GottenItemShow()
 	{
+		if (gottenItemNum <= 0)
+		{
+			gottenItemNum = 0;
+			currentGottenItem = ITEM.NONE;
+		}
 		switch (currentGottenItem)
 		{
 			case ITEM.NONE:
@@ -128,11 +114,6 @@ public class Player : MonoBehaviour
 				UIManager.Instance.enforcePopup.SetActive(true);
 				Time.timeScale = 0;
 			}
-		}
-		else if (collision.CompareTag("TrashcanZone"))
-		{
-			trashcanTimer = 0;
-			isTrashcanZone = true;
 		}
 		// 카운터 빌런이 없을 때만 가능
 		else if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterVillianSpawn == false)
@@ -182,11 +163,7 @@ public class Player : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if (collision.CompareTag("TrashcanZone"))
-		{
-			isTrashcanZone = false;
-		}
-		else if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterUp == false)
+		if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterUp == false)
 		{
 			GameManager.Instance.isSellingFood = false;
 		}

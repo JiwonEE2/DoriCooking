@@ -7,8 +7,6 @@ TagManager:
   - Money
   - MoneySaveZone
   - EnforceZone
-  - CookZone0
-  - CookZone1
   - FoodSetZone
   - TrashcanZone
   layers:
