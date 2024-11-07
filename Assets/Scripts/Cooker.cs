@@ -11,8 +11,11 @@ public class Cooker : MonoBehaviour
 	public int cookerNum;
 	public int foodCount = 0;
 
+	private Player player;
+
 	private void Start()
 	{
+		player = GameObject.Find("Player").GetComponent<Player>();
 		objectRenderer = transform.Find("ObjectRenderer").gameObject;
 
 		objectSpriteRenderer1 = objectRenderer.transform.Find("Renderer0").GetComponent<SpriteRenderer>();
@@ -57,6 +60,22 @@ public class Cooker : MonoBehaviour
 			else
 			{
 				yield return null;
+			}
+		}
+	}
+
+	private void OnTriggerStay2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Player") && GameManager.Instance.isCookerVillianSpawn[cookerNum] == false)
+		{
+			if (player.currentGottenItem == Player.ITEM.FOOD || player.currentGottenItem == Player.ITEM.NONE)
+			{
+				while (foodCount > 0 && player.gottenItemNum < GameManager.Instance.playerGettableItemCount)
+				{
+					player.gottenItemNum++;
+					foodCount--;
+					player.currentGottenItem = Player.ITEM.FOOD;
+				}
 			}
 		}
 	}

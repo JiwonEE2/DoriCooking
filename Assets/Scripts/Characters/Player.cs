@@ -24,10 +24,8 @@ public class Player : MonoBehaviour
 	[Tooltip("현재 가지고 있는 아이템 종류")]
 	public ITEM currentGottenItem = ITEM.NONE;
 
-	public Cooker cooker0;
-	public Cooker cooker1;
-
-	private Counter counter;
+	private Cooker cooker0;
+	private Cooker cooker1;
 
 	private Sprite moneySprite;
 	private Sprite foodSprite;
@@ -52,6 +50,9 @@ public class Player : MonoBehaviour
 		gottenItemShowObjectSpriteRenderer = gottenItemShowObject.AddComponent<SpriteRenderer>();
 		gottenItemShowObjectSpriteRenderer.sortingOrder = 8;
 		animator = GetComponentInChildren<Animator>();
+
+		cooker0 = GameObject.Find("Cooker0").GetComponent<Cooker>();
+		cooker1 = GameObject.Find("Cooker1").GetComponent<Cooker>();
 	}
 
 	private void Update()
@@ -157,41 +158,6 @@ public class Player : MonoBehaviour
 					Destroy(collision.gameObject);
 					// 가진 것을 머니로 바꾸기
 					currentGottenItem = ITEM.MONEY;
-				}
-			}
-		}
-		// 해당 존의 부모에게서 음식 얻기
-		else if (collision.CompareTag("CookZone0"))
-		{
-			// 가진 게 음식이거나 없을 때
-			// 빌런도 없을 때
-			if (GameManager.Instance.isCookerVillianSpawn[0] == false)
-			{
-				if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
-				{
-					// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-					while (cooker0.foodCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
-					{
-						gottenItemNum++;
-						cooker0.foodCount--;
-						currentGottenItem = ITEM.FOOD;
-					}
-				}
-			}
-		}
-		else if (collision.CompareTag("CookZone1"))
-		{
-			if (GameManager.Instance.isCookerVillianSpawn[1] == false)
-			{
-				if (currentGottenItem == ITEM.FOOD || currentGottenItem == ITEM.NONE)
-				{
-					// 가질 수 있는 만큼, 요리대에 있는 만큼 음식 얻기
-					while (cooker1.foodCount > 0 && gottenItemNum < GameManager.Instance.playerGettableItemCount)
-					{
-						gottenItemNum++;
-						cooker1.foodCount--;
-						currentGottenItem = ITEM.FOOD;
-					}
 				}
 			}
 		}
