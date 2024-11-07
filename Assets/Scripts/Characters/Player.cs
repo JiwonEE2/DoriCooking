@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
 			gottenItemNum = 0;
 			currentGottenItem = ITEM.NONE;
 		}
+
 		switch (currentGottenItem)
 		{
 			case ITEM.NONE:
@@ -89,16 +90,6 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterVillianSpawn == false)
-		{
-			// 음식 나눠주기
-			GameManager.Instance.isSellingFood = true;
-			GameManager.Instance.foodSellTimer = 0;
-		}
-	}
-
 	private void OnTriggerStay2D(Collider2D collision)
 	{
 		// money랑 박았을 때
@@ -116,31 +107,6 @@ public class Player : MonoBehaviour
 					currentGottenItem = ITEM.MONEY;
 				}
 			}
-		}
-		else if (collision.CompareTag("FoodSetZone"))
-		{
-			if (currentGottenItem == ITEM.FOOD)
-			{
-				// 계산대 빌런이 없을 때만 가능
-				if (GameManager.Instance.isCounterVillianSpawn == false)
-				{
-					// 게임매니저의 푸드리밋, 가진 요리 확인하고 넣기
-					while (GameManager.Instance.foodCountLimit > GameManager.Instance.foodCount && gottenItemNum > 0)
-					{
-						// 가진 요리를 전부 foodsetzone에 넣기
-						gottenItemNum--;
-						GameManager.Instance.foodCount++;
-					}
-				}
-			}
-		}
-	}
-
-	private void OnTriggerExit2D(Collider2D collision)
-	{
-		if (collision.gameObject.name == "FoodDistributeZone" && GameManager.Instance.isCounterUp == false)
-		{
-			GameManager.Instance.isSellingFood = false;
 		}
 	}
 
