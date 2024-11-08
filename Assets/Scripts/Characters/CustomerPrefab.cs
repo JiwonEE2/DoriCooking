@@ -54,61 +54,53 @@ public class CustomerPrefab : MonoBehaviour
 
 	private void Update()
 	{
-		// 음식 판매
-		// 음식은 다 받기 전에만 판매하고 이후에는 할 필요 없다.
-		// isGetAllFood를 여기에서 건드린다.
-		FoodDistribute();
-	}
-
-	private void FoodDistribute()
-	{
-		// 먼저, 음식을 다 나눠주었는 지 확인
+		// 1. 밥 받기
 		if (isGetAllFood == false)
 		{
-			// 음식량이 충족하는 지 먼저 확인
-			if (foodNum >= foodRequireNum)
-			{
-				isGetAllFood = true;
-			}
-			// 판매할 수 있을 때. 빌런도 없어야 함
-			else if (GameManager.Instance.isSellingFood && GameManager.Instance.isCounterVillianSpawn == false)
-			{
-				// 시간도 지났고, 카운터에 음식이 있을 때
-				if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodCount > 0)
-				{
-					// 음식을 나눠준다
-					foodNum++;
-					GameManager.Instance.foodCount--;
-					GameManager.Instance.foodSellTimer = 0;
-				}
-			}
+			FoodDistribute();
 		}
-		// 음식을 다 나눠 주었다면
-		else if (isGetAllFood)
+		// 2. 빈 테이블 찾고, 3. 돈 내고, 4. 빈 테이블로 이동
+		else if (isGoingTable == false && TableController.Instance.readyTables.Count > 0)
 		{
-			// 출발하지 았았고,
-			if (false == isGoingTable)
-			{
-				// 준비된 테이블이 있으면, 돈주고, 테이블에 간다.
-				if (TableController.Instance.readyTables.Count > 0)
-				{
-					GameManager.Instance.customerTimer = 0;
-					GameManager.Instance.isCustomerStanding = false;
-					for (int i = 0; i < foodRequireNum; i++)
-					{
-						Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
-					}
-					// 출발
-					GoEmptyTable();
-				}
-			}
+			GoEmptyTable();
 		}
 
 		// 음식 가지면 음식 스프라이트 표시하기
 		// 단, 테이블에 도착하기 전까지만. 테이블에 도착하면 테이블 위에 표시하게 된다.
 		FoodRender();
 
-		StartEat();
+		// 출발했고, 목적지와 현재 위치가 같으면 세팅 후 식사 시작
+		if (isGoingTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
+		{
+			StopCoroutine(MovingCoroutine());
+			StartEat();
+
+			if (foodNum <= 0)
+			{
+				CustomerDestroy();
+			}
+		}
+	}
+
+	private void FoodDistribute()
+	{
+		// 음식량이 충족하는 지 먼저 확인
+		if (foodNum >= foodRequireNum)
+		{
+			isGetAllFood = true;
+		}
+		// 판매할 수 있을 때. 빌런도 없어야 함
+		else if (GameManager.Instance.isSellingFood && GameManager.Instance.isCounterVillianSpawn == false)
+		{
+			// 시간도 지났고, 카운터에 음식이 있을 때
+			if (GameManager.Instance.foodSellTimer >= GameManager.Instance.foodSellDuration && foodRequireNum > foodNum && GameManager.Instance.foodCount > 0)
+			{
+				// 음식을 나눠준다
+				foodNum++;
+				GameManager.Instance.foodCount--;
+				GameManager.Instance.foodSellTimer = 0;
+			}
+		}
 	}
 
 	private void FoodRender()
@@ -125,27 +117,22 @@ public class CustomerPrefab : MonoBehaviour
 
 	private void StartEat()
 	{
-		// 출발했고, 목적지와 현재 위치가 같으면 세팅 후 식사 시작
-		if (isGoingTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
-		{
-			isGetTable = true;
-			// 덜 먹었으면 먹고
-			// 테이블 위에 음식 스프라이트 표시
-			currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
-			StopCoroutine(MovingCoroutine());
-			if (isEatCoroutineStart == false)
-			{
-				isEatCoroutineStart = true;
-			}
-			if (foodNum <= 0)
-			{
-				CustomerDestroy();
-			}
-		}
+		isGetTable = true;
+		// 덜 먹었으면 먹고
+		// 테이블 위에 음식 스프라이트 표시
+		currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
+		isEatCoroutineStart = true;
 	}
 
 	public void GoEmptyTable()
 	{
+		GameManager.Instance.customerTimer = 0;
+		GameManager.Instance.isCustomerStanding = false;
+		for (int i = 0; i < foodRequireNum; i++)
+		{
+			Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
+		}
+
 		isGoingTable = true;
 		// 준비된 테이블에서 삭제하고 현재 이 손님의 테이블로 설정
 		currentTable = TableController.Instance.readyTables[0];
