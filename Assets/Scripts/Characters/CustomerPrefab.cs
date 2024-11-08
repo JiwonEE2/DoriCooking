@@ -61,15 +61,13 @@ public class CustomerPrefab : MonoBehaviour
 			FoodDistribute();
 		}
 		// 2. 준비된 테이블 찾기
-		else if (isGoingTable == false && TableController.Instance.readyTables.Count > 0)
+		else
 		{
-			// 3. 돈 내고, 4. 준비된 테이블로 이동
-			GoEmptyTable();
-			if (isGoingTable == false)
+			if (isGoingTable == false && TableController.Instance.readyTables.Count > 0)
 			{
-				isGoingTable = true;
-				isContact = false;
-				StartCoroutine(MovingCoroutine());
+				// 3. 돈 내고, 4. 준비된 테이블로 이동
+				PayMoney();
+				GoTable();
 			}
 		}
 
@@ -147,7 +145,7 @@ public class CustomerPrefab : MonoBehaviour
 		currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
 	}
 
-	public void GoEmptyTable()
+	public void PayMoney()
 	{
 		GameManager.Instance.customerTimer = 0;
 		GameManager.Instance.isCustomerStanding = false;
@@ -155,10 +153,17 @@ public class CustomerPrefab : MonoBehaviour
 		{
 			Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
 		}
+	}
 
+	private void GoTable()
+	{
 		// 준비된 테이블에서 삭제하고 현재 이 손님의 테이블로 설정
 		currentTable = TableController.Instance.readyTables[0];
 		TableController.Instance.readyTables.Remove(currentTable);
+
+		isGoingTable = true;
+		isContact = false;
+		StartCoroutine(MovingCoroutine());
 	}
 
 	public IEnumerator MovingCoroutine()
