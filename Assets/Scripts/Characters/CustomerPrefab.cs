@@ -20,21 +20,22 @@ public class CustomerPrefab : MonoBehaviour
 
 	public float eatFoodTime = 0;
 
+	private SpriteRenderer gettenObjectSpriteRenderer;
+	private Sprite foodSprite;
+
 	// 음식을 다 나눠 주었는지 확인을 위함.
 	public bool isGetAllFood = false;
 	public bool isGoingTable = false;
 	// 테이블에 도착하였는지 확인. 음식을 가지고 있어도 도착한 후에는 스프라이트 표시를 하지 않기 위함.
 	private bool isGetTable = false;
 
-	private SpriteRenderer gettenObjectSpriteRenderer;
-	private Sprite foodSprite;
-
-	private bool isContact = false;
-
 	private bool isEatCoroutineStart = false;
 
 	// Customer Controller에서 해당 customer를 삭제하기 위한 변수
 	public bool readyDestroy = false;
+
+	// 충돌 판정을 위함. 바로 다시 false로 돌아가기 때문에 초기화할 필요 없다.
+	private bool isContact = false;
 
 	private void Start()
 	{
@@ -57,24 +58,6 @@ public class CustomerPrefab : MonoBehaviour
 		// 음식은 다 받기 전에만 판매하고 이후에는 할 필요 없다.
 		// isGetAllFood를 여기에서 건드린다.
 		FoodDistribute();
-
-		// 음식 가지면 음식 스프라이트 표시하기
-		// 단, 테이블에 도착하기 전까지만. 테이블에 도착하면 테이블 위에 표시하게 된다.
-		FoodRender();
-
-		// 이건 뭐지? 먹는거 시작인가
-		if (isGoingTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
-		{
-			StopCoroutine(MovingCoroutine());
-			if (isEatCoroutineStart == false)
-			{
-				isEatCoroutineStart = true;
-			}
-			if (foodNum <= 0)
-			{
-				CustomerDestroy();
-			}
-		}
 	}
 
 	private void FoodDistribute()
@@ -101,7 +84,7 @@ public class CustomerPrefab : MonoBehaviour
 			}
 		}
 		// 음식을 다 나눠 주었다면
-		else
+		else if (isGetAllFood)
 		{
 			// 출발하지 았았고,
 			if (false == isGoingTable)
@@ -120,6 +103,12 @@ public class CustomerPrefab : MonoBehaviour
 				}
 			}
 		}
+
+		// 음식 가지면 음식 스프라이트 표시하기
+		// 단, 테이블에 도착하기 전까지만. 테이블에 도착하면 테이블 위에 표시하게 된다.
+		FoodRender();
+
+		StartEat();
 	}
 
 	private void FoodRender()
@@ -131,6 +120,27 @@ public class CustomerPrefab : MonoBehaviour
 		else
 		{
 			gettenObjectSpriteRenderer.enabled = false;
+		}
+	}
+
+	private void StartEat()
+	{
+		// 출발했고, 목적지와 현재 위치가 같으면 세팅 후 식사 시작
+		if (isGoingTable && (Vector2)transform.position == currentTable.GetComponent<TablePrefab>().customerPos)
+		{
+			isGetTable = true;
+			// 덜 먹었으면 먹고
+			// 테이블 위에 음식 스프라이트 표시
+			currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
+			StopCoroutine(MovingCoroutine());
+			if (isEatCoroutineStart == false)
+			{
+				isEatCoroutineStart = true;
+			}
+			if (foodNum <= 0)
+			{
+				CustomerDestroy();
+			}
 		}
 	}
 
@@ -194,11 +204,6 @@ public class CustomerPrefab : MonoBehaviour
 				}
 			}
 
-			// 테이블에 갔으면,
-			isGetTable = true;
-			// 덜 먹었으면 먹고
-			// 테이블 위에 음식 스프라이트 표시
-			currentTable.GetComponent<TablePrefab>().objectSpriteRenderer.sprite = SpriteManager.Instance.foodSprite;
 			yield return null;
 		}
 		yield return null;
