@@ -20,7 +20,6 @@ public class Trashcan : MonoBehaviour
 		if (timer >= trashThrowTime)
 		{
 			timer = 0;
-			print(player.gottenItemNum);
 			player.gottenItemNum--;
 		}
 	}
