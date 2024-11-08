@@ -103,7 +103,7 @@ public class CustomerPrefab : MonoBehaviour
 		// 음식을 다 나눠 주었다면
 		else
 		{
-			// 테이블에 가지 았았고,
+			// 출발하지 았았고,
 			if (false == isGoingTable)
 			{
 				// 준비된 테이블이 있으면, 돈주고, 테이블에 간다.
@@ -115,9 +115,8 @@ public class CustomerPrefab : MonoBehaviour
 					{
 						Instantiate(moneyPrefab, moneySpawnPoint, Quaternion.identity);
 					}
+					// 출발
 					GoEmptyTable();
-					isGoingTable = true;
-					StartCoroutine(MovingCoroutine());
 				}
 			}
 		}
@@ -137,24 +136,26 @@ public class CustomerPrefab : MonoBehaviour
 
 	public void GoEmptyTable()
 	{
-		// 비어있는 테이블 삭제하고 점령된 테이블에 추가하기
+		isGoingTable = true;
+		// 준비된 테이블에서 삭제하고 현재 이 손님의 테이블로 설정
 		currentTable = TableController.Instance.readyTables[0];
 		TableController.Instance.readyTables.Remove(currentTable);
+		StartCoroutine(MovingCoroutine());
 	}
 
 	public IEnumerator MovingCoroutine()
 	{
+		// 출발
 		while (isGoingTable)
 		{
 			// 테이블에 가는 중
 			while ((Vector2)transform.position != currentTable.GetComponent<TablePrefab>().customerPos)
 			{
-				// 손님의 길찾기 알고리즘 구현하기 (장애물이 많지 않은 상황에서 사용하기에 가볍고 괜찮아보임)
-				// 후에 A* 등 알고리즘 넣어도 될 듯
 				// 1. 출발지에서 목적지까지의 x,y증분을 각각 구한다.
 				float x = currentTable.GetComponent<TablePrefab>().customerPos.x - transform.position.x;
 				float y = currentTable.GetComponent<TablePrefab>().customerPos.y - transform.position.y;
 
+				// 충돌하지 않았을 경우
 				if (isContact == false)
 				{
 					// 2. 증분이 같아질 때까지 더 큰 증분을 감소시킨다.
@@ -162,7 +163,6 @@ public class CustomerPrefab : MonoBehaviour
 					{
 						if (x < 0)
 						{
-							// 해당 위치에서 갈 수 없는 경우
 							transform.Translate(new Vector2(-1, 0));
 							yield return new WaitForSeconds(1 / moveSpeed);
 						}
@@ -186,18 +186,13 @@ public class CustomerPrefab : MonoBehaviour
 						}
 					}
 				}
+				// 충돌하였을 경우
 				else
 				{
-					yield return null;
+					yield return new WaitForSeconds(1f);
+					isContact = false;
 				}
 			}
-			// 3. 이때, 장애물이 있다면 다른 증분을 감소시킨다.
-
-			// 4. 두 증분이 같아지면 번갈아가며 증분을 감소시킨다. 
-
-			// 5. 이때에도 장애물이 있는 지 확인하며 장애물이 있다면 다른 증분을 감소시킨다.
-
-			// 6. 근데 두 방향 다 증분을 감소시킬 수 없다면 해당 방향을 빠져나올 수 있도록 반대 장애물을 감소시킨다.
 
 			// 테이블에 갔으면,
 			isGetTable = true;
@@ -241,12 +236,5 @@ public class CustomerPrefab : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		isContact = true;
-		StartCoroutine(StayCoroutine());
-	}
-
-	public IEnumerator StayCoroutine()
-	{
-		yield return new WaitForSeconds(1f);
-		isContact = false;
 	}
 }
