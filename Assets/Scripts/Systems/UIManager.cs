@@ -36,21 +36,31 @@ public class UIManager : SingletonManager<UIManager>
 
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			// 강화창 열려 있으면 닫고
-			if (enforcePopup.activeSelf)
-			{
-				enforcePopup.SetActive(false);
-				Time.timeScale = 1;
-			}
-			// 아니면 일시정지 창을 연다.
-			else
-			{
-				pausePopup.SetActive(true);
-				Time.timeScale = 0;
-			}
+			PauseGame();
 		}
 
 		// 빌런 스폰 시 UI 활성화 및 소멸시 비활성화
 		villianSign.SetActive(isVillianSpawn);
+	}
+
+	private void PauseGame()
+	{
+		// 강화창 열려 있으면 닫고
+		if (enforcePopup.activeSelf)
+		{
+			enforcePopup.SetActive(false);
+			Time.timeScale = 1;
+		}
+		// 아니면 일시정지 창을 연다.
+		else
+		{
+			pausePopup.SetActive(true);
+			Time.timeScale = 0;
+		}
+	}
+
+	public void OnClickPauseButton()
+	{
+		PauseGame();
 	}
 }

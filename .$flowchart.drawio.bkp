@@ -1,0 +1,121 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="934" dy="-135" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="PT7aACLk_WP4qmymsmQD-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-23" target="PT7aACLk_WP4qmymsmQD-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-23" value="Cooker에서 음식 생성" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="1280" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-27" target="PT7aACLk_WP4qmymsmQD-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-27" value="판매 음식 수량만큼 돈 생성" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="440" y="1480" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-31" value="손님 삭제" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="1880" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-33" target="PT7aACLk_WP4qmymsmQD-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-33" value="가게 재정에 전달된 돈이 반환" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="1580" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-65" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-35" target="PT7aACLk_WP4qmymsmQD-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-35" value="강화 횟수마다 가게 레벨 상승&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%EA%B0%80%EA%B2%8C%20%EC%9E%AC%EC%A0%95%EC%97%90%20%EC%A0%84%EB%8B%AC%EB%90%9C%20%EB%8F%88%EC%9D%B4%20%EB%B0%98%ED%99%98%22%20style%3D%22rounded%3D1%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3BfontSize%3D12%3Bglass%3D0%3BstrokeWidth%3D1%3Bshadow%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22560%22%20y%3D%221800%22%20width%3D%22120%22%20height%3D%2240%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%EA%B0%80%EA%B2%8C%20%EC%9E%AC%EC%A0%95%EC%97%90%20%EC%A0%84%EB%8B%AC%EB%90%9C%20%EB%8F%88%EC%9D%B4%20%EB%B0%98%ED%99%98%22%20style%3D%22rounded%3D1%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3BfontSize%3D12%3Bglass%3D0%3BstrokeWidth%3D1%3Bshadow%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22560%22%20y%3D%221800%22%20width%3D%22120%22%20height%3D%2240%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="1780" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-36" value="레벨에 따라&lt;div&gt;생성되는 손님 종류 변경&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="1880" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-39" target="PT7aACLk_WP4qmymsmQD-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-39" value="가게 레벨에 따라&lt;div&gt;Counter에서 손님 생성&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="1480" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-40" target="PT7aACLk_WP4qmymsmQD-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-40" value="생성된 음식을&lt;div&gt;FoodSet으로 전달&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="1380" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-41" target="PT7aACLk_WP4qmymsmQD-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-41" value="생성된 돈을&lt;div&gt;MoneyBox로 전달&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="1480" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-42" target="PT7aACLk_WP4qmymsmQD-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-42" value="가게 재정으로&lt;div&gt;강화PopUp에서 강화&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="1680" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-44" value="테이블의 쓰레기를&lt;div&gt;Trashcan으로 전달하여&lt;/div&gt;&lt;div&gt;삭제&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="440" y="1780" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-45" target="PT7aACLk_WP4qmymsmQD-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-45" target="PT7aACLk_WP4qmymsmQD-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-45" value="FoodDistribute에서&lt;div&gt;FoodSet에 전달된 음식을&lt;/div&gt;&lt;div&gt;손님에게 판매&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="1480" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-46" target="PT7aACLk_WP4qmymsmQD-47">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-46" value="준비된 테이블로 이동" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="1580" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-47" target="PT7aACLk_WP4qmymsmQD-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-47" value="음식 섭취" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="1680" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-48" target="PT7aACLk_WP4qmymsmQD-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=block;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PT7aACLk_WP4qmymsmQD-48" target="PT7aACLk_WP4qmymsmQD-44">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-48" value="테이블에 쓰레기 생성" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="1780" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-66" value="시스템" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;dashed=1;dashPattern=8 8;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="1200" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-67" value="플레이어" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=1;dashed=1;dashPattern=8 8;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="1200" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-68" value="손님" style="ellipse;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="440" y="1200" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-69" value="빌런" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="1200" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-70" value="&lt;div&gt;랜덤 시간에 따라&lt;/div&gt;Cooker빌런 생성" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="440" y="1280" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-71" value="&lt;div&gt;랜덤 확률에 따라&lt;/div&gt;Table빌런 생성" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="440" y="1880" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-72" value="&lt;div&gt;랜덤 시간에 따라&lt;/div&gt;Counter빌런 생성" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="1580" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PT7aACLk_WP4qmymsmQD-73" value="&lt;div&gt;랜덤 시간에 따라&lt;/div&gt;MoneyBox빌런 생성" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="640" y="1380" width="160" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
